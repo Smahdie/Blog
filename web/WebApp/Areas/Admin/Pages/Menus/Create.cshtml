@@ -1,0 +1,125 @@
+﻿@page
+
+@using Core.Dtos.MenuDtos
+
+@model CreateModel
+
+@{
+    ViewData["Title"] = "ایجاد منو";
+    ViewData["BreadCrumb"] = new List<BreadCrumbDto> { new BreadCrumbDto { Text = "منوها", Href = Url.Page("Index") } };
+    ViewData["BodyClass"] = "smallForm";
+}
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">@ViewData["Title"]</h3>
+        </div>
+        <div class="card-body">
+            <div class="box">
+                <form asp-antiforgery="true"
+                      data-ajax="true"
+                      data-ajax-method="POST"
+                      data-ajax-success="ajaxOnSuccess"
+                      onsubmit="return save()">
+
+                    <div class="box-body">
+                        @{
+                            var headerModel = new MenuMemberUpdateDto();
+                        }
+                        <label asp-for="Input.MenuMembers"></label>
+                        <input type="hidden" asp-for="Input.MenuMembers" />
+                        <table class="table menu">
+                            <thead class="text-center">
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        <label>@Html.DisplayNameFor(m => headerModel.TargetType)</label>
+                                        <select id="TargetType"
+                                                class="form-control"
+                                                asp-items="Html.GetEnumSelectList<MenuMemberTargetType>()">
+                                            <option>انتخاب کنید</option>
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <label>@Html.DisplayNameFor(m => headerModel.CategoryId)</label>
+                                        <select id="CategoryId"
+                                                data-url="?handler=CategoryList"
+                                                class="form-control select2 ajax-load"
+                                                style="width: 100%;"
+                                                disabled>
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <label>@Html.DisplayNameFor(m => headerModel.PageId)</label>                                        
+                                        <select id="PageId"
+                                                data-url="?handler=PageList"
+                                                class="form-control select2 ajax-load"
+                                                style="width: 100%;"
+                                                disabled>
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                    </th>
+                                    <th class="text-center">
+                                        <label>&nbsp;</label>
+                                        <button title="اضافه کن" id="save-btn" type="button" class="btn text-primary">
+                                            <i class="fa fa-plus-circle"></i>
+                                        </button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="member-container" class="text-center cursor-move">
+                            </tbody>
+                        </table>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Title"></label>
+                            <input asp-for="Input.Title" class="form-control" />
+                            <span asp-validation-for="Input.Title" class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Keyword"></label>
+                            <input asp-for="Input.Keyword" class="form-control" />
+                            <span asp-validation-for="Input.Keyword" class="help-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="box-footer text-left">
+                        <button id="btn-submit" type="submit" class="btn btn-primary">تایید</button>
+                        <a asp-page="Index" class="btn btn-default">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/libs/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/libs/select2/js/select2.min.js"></script>
+    <script src="~/libs/handlebars.js/handlebars.min.js"></script>
+    <script src="~/panel_assets/js/pages/Menus/create.min.js"></script>
+
+    <script id="entry-template" type="text/x-handlebars-template">
+        <tr data-id="0" data-type="{{typeId}}" data-category="{{categoryId}}" data-page="{{pageId}}">
+            <td>
+                <span class="handle ui-sortable-handle">
+                    <i class="fas fa-ellipsis-v"></i>
+                </span>
+            </td>
+            <td>{{typeName}}</td>
+            <td>{{categoryName}}</td>
+            <td>{{pageTitle}}</td>
+            <td>
+                <div class="tools">
+                    <a href="#" class="btn-remove-row text-red"><i class="fa fa-trash-alt"></i></a>
+                </div>
+            </td>
+        </tr>
+    </script>
+}
+@section Styles{
+    <link href="~/libs/select2/css/select2.min.css" rel="stylesheet" />
+}

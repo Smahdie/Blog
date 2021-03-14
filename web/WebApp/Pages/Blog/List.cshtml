@@ -1,0 +1,43 @@
+﻿@page "{handler}/Page-{pageNumber=1}/{id?}/{slug?}"
+@model WebApp.Pages.Blog.ListModel
+
+@{ 
+    ViewData["BreadCrumbTitle"] = ViewData["PageHeading"] = "بلاگ";
+}
+
+<main id="main">
+    @await Html.PartialAsync("_BreadCrumbs")
+
+    <section id="blog" class="blog">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8 entries">
+                    @foreach (var item in Model.Contents)
+                    {
+                        @await Html.PartialAsync("_BlogListItem", item)
+                    }
+
+                    <div class="blog-pagination">
+                        @Html.Pagination(
+                        Model.Contents,
+                        current => Url.Page("List", new { handler = Model.RequestHandler, pageNumber = current, id = Model.RequestId, slug = Model.RequestSlug }),
+                        PaginatedStyle.NumbersWithFirstPreviousNextLast,
+                        new PaginatedOptions
+                        {
+                            NextLabel = "بعدی",
+                            PreviousLabel = "قبلی",
+                            FirstLabel = "اولین",
+                            LastLabel = "آخرین"
+                        }
+                    )
+                    </div>
+                </div>
+
+                @await Html.PartialAsync("_BlogSidebar")
+
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,29 @@
+﻿@page "/Page/{keyword}"
+@model WebApp.Pages.Pages.DetailsModel
+
+@{
+    ViewData["BreadCrumbTitle"] = ViewData["PageHeading"] = Model.Data.Title;
+}
+
+<main id="main">
+
+    @await Html.PartialAsync("_BreadCrumbs")
+
+    <section id="blog" class="blog">
+        <input type="hidden" id="blog-id" value="@Model.Data.Id" />
+        <div class="container">
+
+            <article class="entry entry-single">
+                <h2 class="entry-title">
+                    @Model.Data.Title
+                </h2>
+
+                <div class="entry-content">
+                    @Html.Raw(Model.Data.Body)
+                </div>
+
+            </article>
+
+        </div>
+    </section>
+</main>

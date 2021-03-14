@@ -1,0 +1,22 @@
+﻿@page
+
+@model IndexModel
+
+@{
+    ViewData["Title"] = "صفحه ها";
+}
+
+<section class="content">
+    @Html.AntiForgeryToken()
+
+    @await Html.PartialAsync("_GridSearch")
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">@ViewData["Title"]</h3>
+        </div>
+        <div id="grid-holder" class="card-body p-0">
+            @await Html.PartialAsync("_Grid", Model)
+        </div>
+    </div>
+</section>

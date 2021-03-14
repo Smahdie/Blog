@@ -1,0 +1,109 @@
+﻿@page
+
+@inject IOptions<UploadAddresses> uploadAddresses
+
+@model CreateModel
+
+@{
+    ViewData["Title"] = "ایجاد محتوا";
+    ViewData["BreadCrumb"] = new List<BreadCrumbDto> { new BreadCrumbDto { Text = "محتواها", Href = Url.Page("Index") } };
+}
+
+<section class="content">
+    <form asp-antiforgery="true"
+          data-ajax="true"
+          data-ajax-method="POST"
+          data-ajax-success="ajaxOnSuccess">
+        <div class="row mb-md-3">
+            <div class="col-md-8 mb-3 mb-md-0">
+                <div class="card h-100 mb-0">
+                    <div class="card-header">
+                        <h3 class="card-title">مشخصات پایه</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="box">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label asp-for="Input.Title"></label>
+                                    <input asp-for="Input.Title" class="form-control" />
+                                    <span asp-validation-for="Input.Title" class="help-block"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Input.Summary"></label>
+                                    <textarea asp-for="Input.Summary" class="form-control"></textarea>
+                                    <span asp-validation-for="Input.Summary" class="help-block"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Input.Body"></label>
+                                    <textarea class="summernote" asp-for="Input.Body"></textarea>
+                                    <span asp-validation-for="Input.Body" class="help-block"></span>
+                                </div>
+
+                                <div class="form-group mb-0">
+                                    <label asp-for="Input.ImagePath"></label>
+                                    <div class="dropzone dropzone-file-area" data-upload-address="@uploadAddresses.Value.ContentImage" >
+                                        <input class="address-holder" type="hidden" asp-for="Input.ImagePath" />
+                                        <div class="dz-default dz-message">
+                                            <h3 class="sbold">فایل را بکشید و در کادر رها کنید</h3>
+                                            <span>یا اینجا کلیک کنید و انتخاب کنید</span>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="Input.ImagePath" class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="card h-100 mb-0">
+                    <div class="card-header">
+                        <h3 class="card-title">سایر مشخصات</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="box">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label asp-for="Input.Tags"></label>
+                                    <div>
+                                        <select asp-for="Input.Tags" class="tagsSelector form-control" multiple="multiple" style="width:100%">
+                                        </select>
+                                    </div>
+                                    <span asp-validation-for="Input.Tags" class="help-block"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Input.Categories"></label>
+                                    <input asp-for="Input.Categories" type="hidden" />
+                                    <div id="categories_tree"></div>
+                                    <span asp-validation-for="Input.Categories" class="help-block"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input" type="checkbox" asp-for="Input.IsActive">
+                                        <label class="custom-control-label" asp-for="Input.IsActive"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-2 text-left">
+            <button type="submit" class="btn btn-primary">تایید</button>
+            <a asp-page="Index" class="btn btn-default">بازگشت</a>
+        </div>
+    </form>
+</section>
+
+@section Scripts{
+    <script src="~/panel_build/pages/Contents/assets.min.js"></script>
+}
+@section Styles{
+    <link href="~/panel_build/pages/Contents/assets.min.css" rel="stylesheet" />
+}

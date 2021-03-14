@@ -1,0 +1,14 @@
+﻿@using Core.Dtos.PageDtos
+@model PageDetailsDto
+
+@if (Model!=null)
+{
+<div class="col-lg-4">
+    <div class="icon-box">
+        <h3><a asp-page="/Pages/Details" asp-route-keyword="@Model.Keyword">@Model.Title</a></h3>
+        <p>
+            @Model.Summary
+        </p>
+    </div>
+</div>
+}

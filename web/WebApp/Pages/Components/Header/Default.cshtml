@@ -1,0 +1,62 @@
+﻿@using Core.Dtos.MenuDtos
+@model MenuDetailsDto
+
+
+<header id="header">
+    <div class="container d-flex">
+        <div class="logo">
+            <h1 class="text-light"><a href="/"><span>برند شما</span></a></h1>
+        </div>
+
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                @if (Model != null && Model.MenuMembers != null)
+                {
+                    foreach (var item in Model.MenuMembers)
+                    {
+                        switch (item.TargetType)
+                        {
+                            case MenuMemberTargetType.Home:
+                                <li><a href="/">صفحه اصلی</a></li>
+                                break;
+                            case MenuMemberTargetType.Blog:
+                                <li><a asp-page="/Blog/List" asp-route-handler="All">بلاگ</a></li>
+                                break;
+                            case MenuMemberTargetType.ContactUs:
+                                <li><a asp-page="/ContactUs">تماس با ما</a></li>
+                                break;
+                            case MenuMemberTargetType.Category:
+                                if (item.Category != null)
+                                {
+                                    if (item.Category.Children == null || !item.Category.Children.Any())
+                                    {
+                                        <li><a asp-page="/Category/Index" asp-route-id="@item.Category.Id" asp-route-slug="@item.Category.Slug">@item.Category.Name</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="drop-down">
+                                            <a href="#">@item.Category.Name</a>
+                                            <ul>
+                                                @foreach (var child in item.Category.Children)
+                                                {
+                                                    <li><a asp-page="/Category/Index" asp-route-id="@child.Id" asp-route-slug="@child.Slug">@child.Name</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                }
+                                break;
+                            case MenuMemberTargetType.Page:
+                                if (item.Page != null)
+                                {
+                                    <li><a asp-page="/Pages/Details" asp-route-keyword="@item.Page.Keyword">@item.Page.Title</a></li>
+                                }
+
+                                break;
+                        }
+                    }
+                }
+            </ul>
+        </nav>
+    </div>
+</header>

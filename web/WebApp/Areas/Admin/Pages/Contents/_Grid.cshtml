@@ -1,0 +1,67 @@
+﻿@model IndexModel
+
+@using Core.Dtos.ContentDtos
+
+@{
+    var searchModel = ViewData["SearchModel"] as ContentGridDto;
+}
+
+@if (Model.Contents == null || !Model.Contents.Any())
+{
+    <div class="py-3 text-blue text-center no-record">
+        <p>اطلاعاتی برای نمایش وجود ندارد.</p>
+    </div>
+}
+
+else
+{
+    <table class="table table-striped AdvancedGrid">
+        <thead>
+            <tr>
+                <th class="sortable">@Html.LabelFor(model => searchModel.Id)</th>
+                <th class="sortable">@Html.LabelFor(model => searchModel.Title)</th>
+                <th class="sortable">@Html.LabelFor(model => searchModel.ViewCount)</th>
+                <th class="sortable">@Html.LabelFor(model => searchModel.IsActive)</th>
+                <th class="sortable">@Html.LabelFor(model => searchModel.CreatedOn)</th>
+                <th class="sortable">@Html.LabelFor(model => searchModel.UpdatedOn)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Contents)
+            {
+                <tr data-id="@item.Id">
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.ViewCount</td>
+                    <td>@Html.StatusBadge(item.Id.ToString(), item.IsActive)</td>
+                    <td dir="ltr" class="text-right">@item.CreatedOn</td>
+                    <td dir="ltr" class="text-right">@item.UpdatedOn</td>
+                    <td>
+                        @Html.EditLink(Url.Page("Edit", new { item.Id }))
+                        @Html.RemoveLink(item.Id.ToString())
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="9">
+                    @Html.Pagination(
+                        Model.Contents,
+                        current => Url.Page("Index", new { current }),
+                        PaginatedStyle.NumbersWithFirstPreviousNextLast,
+                        new PaginatedOptions
+                        {
+                            NextLabel = "بعدی",
+                            PreviousLabel = "قبلی",
+                            FirstLabel = "اولین",
+                            LastLabel = "آخرین"
+                        }
+                    )
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+}
+

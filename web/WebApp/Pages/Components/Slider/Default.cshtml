@@ -1,0 +1,52 @@
+﻿@using Core.Dtos.SliderDtos
+@model List<SliderListDto>
+
+@if (Model.Any())
+{
+    <section id="hero">
+        <div class="hero-container">
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+
+                <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+                <div class="carousel-inner" role="listbox">
+
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        var item = Model[i];
+                        <div class="carousel-item @(i==0?"active":string.Empty)" style="background-image: url(@item.ImagePath)">
+                            <div class="carousel-container">
+                                <div class="carousel-content">
+                                    @if (!string.IsNullOrWhiteSpace(item.Heading))
+                                    {
+                                        <h2 class="animate__animated animate__fadeInDown">@item.Heading</h2>
+                                    }
+                                    @if (!string.IsNullOrWhiteSpace(item.Description))
+                                    {
+                                        <p class="animate__animated animate__fadeInUp">@item.Description</p>
+                                    }
+                                    @if (!string.IsNullOrWhiteSpace(item.Link))
+                                    {
+                                        var text = string.IsNullOrWhiteSpace(item.LinkText) ? "بیشتر بخوانید" : item.LinkText;
+                                        <a href="@item.Link" class="btn-get-started animate__animated animate__fadeInUp">@text</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon icofont-rounded-left" aria-hidden="true"></span>
+                    <span class="sr-only">قبلی</span>
+                </a>
+
+                <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon icofont-rounded-right" aria-hidden="true"></span>
+                    <span class="sr-only">بعدی</span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+}

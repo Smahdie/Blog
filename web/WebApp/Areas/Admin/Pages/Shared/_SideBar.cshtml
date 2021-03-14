@@ -1,0 +1,154 @@
+﻿@inject Admin.Services.Profile.ProfileManager ProfileManager
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="/" class="brand-link">
+        <img src="/panel_assets/img/Logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">پنل مدیریت</span>
+    </a>
+    <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="@($"/panel_assets/img/avatar-{ProfileManager.CurrentUser.Gender.ToString().ToLower()}.jpg")"  class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="javascript:void(0)" class="d-block">@ProfileManager.CurrentUser.UserName </a>
+            </div>
+        </div>
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item @(Html.IsMenuActive("/Admin/Sliders") ? "menu-open" : "")">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-play-circle"></i>
+                        <p>
+                            اسلایدرها
+                            <i class="fas fa-angle-left left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"><a asp-page="/Sliders/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Sliders/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
+                        <li class="nav-item"><a asp-page="/Sliders/Create" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Sliders/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>ایجاد اسلایدر</p></a></li>
+                        <li class="d-none"><a asp-page="/Sliders/Edit"  asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Sliders/Edit") ? "active" : "")"><i class="nav-icon fa fa-circle-o"></i> <p>ویرایش اسلایدر</p></a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @(Html.IsMenuActive("/Admin/Contents") ? "menu-open" : "")">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-file-alt"></i>
+                        <p>
+                            محتواها
+                            <i class="fas fa-angle-left left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"><a asp-page="/Contents/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Contents/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
+                        <li class="nav-item"><a asp-page="/Contents/Create" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Contents/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>ایجاد محتوا</p></a></li>
+                        <li class="d-none"><a asp-page="/Contents/Edit" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Contents/Edit") ? "active" : "")"><i class="nav-icon fa fa-circle-o"></i> <p>ویرایش محتوا</p></a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @(Html.IsMenuActive("/Admin/Categories") ? "menu-open" : "")">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-sitemap"></i>
+                        <p>
+                            دسته ها
+                            <i class="fas fa-angle-left left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"><a asp-page="/Categories/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Categories/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
+                        <li class="nav-item"><a asp-page="/Categories/Create" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Categories/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>ایجاد دسته</p></a></li>
+                        <li class="d-none"><a asp-page="/Categories/Edit" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Categories/Edit") ? "active" : "")"><i class="nav-icon fa fa-circle-o"></i> <p>ویرایش دسته</p></a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @(Html.IsMenuActive("/Admin/Tags") ? "menu-open" : "")">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-hashtag"></i>
+                        <p>
+                            برچسب ها
+                            <i class="fas fa-angle-left left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"><a asp-page="/Tags/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Tags/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @(Html.IsMenuActive("/Admin/Messages") ? "menu-open" : "")">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-envelope"></i>
+                        <p>
+                            پیام ها
+                            <i class="fas fa-angle-left left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"><a asp-page="/Messages/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Messages/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
+                        <li class="d-none"><a asp-page="/Messages/Details" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Messages/Details") ? "active" : "")"><i class="nav-icon fa fa-circle-o"></i> <p>جزییات پیام</p></a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @(Html.IsMenuActive("/Admin/Users") ? "menu-open" : "")">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-user-shield"></i>
+                        <p>
+                            مدیران
+                            <i class="fas fa-angle-left left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"><a asp-page="/Users/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Users/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
+                        <li class="nav-item"><a asp-page="/Users/Create" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Users/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>تعریف مدیر جدید</p></a></li>
+                        <li class="d-none"><a href="#" class="nav-link @(Html.IsMenuActive("/Admin/Users/ChangePassword") ? "active" : "")"><i class="fa fa-circle-o"></i><p>تغییر رمز عبور</p></a></li>
+                        <li class="d-none"><a href="#" class="nav-link @(Html.IsMenuActive("/Admin/Users/Locout") ? "active" : "")"><i class="fa fa-circle-o"></i><p>دسترسی</p></a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @(Html.IsMenuActive("/Admin/Pages") ? "menu-open" : "")">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-info-circle"></i>
+                        <p>
+                            صفحه ها
+                            <i class="fas fa-angle-left left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"><a asp-page="/Pages/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Pages/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
+                        <li class="nav-item"><a asp-page="/Pages/Create" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Pages/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>ایجاد صفحه</p></a></li>
+                        <li class="d-none"><a href="#" class="nav-link @(Html.IsMenuActive("/Admin/Pages/Edit") ? "active" : "")"><i class="fa fa-circle-o"></i><p>ویرایش صفحه</p></a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @(Html.IsMenuActive("/Admin/Menus") ? "menu-open" : "")">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-th-large"></i>
+                        <p>
+                            منوها
+                            <i class="fas fa-angle-left left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"><a asp-page="/Menus/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Menus/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
+                        <li class="d-none"><a href="#" class="nav-link @(Html.IsMenuActive("/Admin/Menus/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>ایجاد منو</p></a></li>
+                        <li class="d-none"><a href="#" class="nav-link @(Html.IsMenuActive("/Admin/Menus/Edit") ? "active" : "")"><i class="fa fa-circle-o"></i><p>ویرایش منو</p></a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @(Html.IsMenuActive("/Admin/contactinfos") ? "menu-open" : "")">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-phone"></i>
+                        <p>
+                            راههای ارتباط
+                            <i class="fas fa-angle-left left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"><a asp-page="/contactinfos/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/contactinfos/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
+                        <li class="nav-item"><a asp-page="/contactinfos/Create" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/contactinfos/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>ایجاد راه ارتباط</p></a></li>
+                        <li class="d-none"><a href="#" class="nav-link @(Html.IsMenuActive("/Admin/contactinfos/Edit") ? "active" : "")"><i class="fa fa-circle-o"></i><p>ویرایش راه ارتباط</p></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

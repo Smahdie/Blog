@@ -1,0 +1,16 @@
+﻿[
+  //panel
+  {
+    "outputFile": "wwwroot/panel_assets/css/site.css",
+    "inputFile": "wwwroot/panel_assets/css/site.scss"
+  },
+  {
+    "outputFile": "wwwroot/panel_assets/css/account.css",
+    "inputFile": "wwwroot/panel_assets/css/account.scss"
+  },
+  //site
+  {
+    "outputFile": "wwwroot/site_assets/css/style.css",
+    "inputFile": "wwwroot/site_assets/css/style.scss"
+  }
+]

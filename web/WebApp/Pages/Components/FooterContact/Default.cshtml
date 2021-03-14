@@ -1,0 +1,38 @@
+﻿@using Core.Dtos.ContactInfoDtos
+@model List<ContactInfoListDto>
+
+@{
+    var address = Model.FirstOrDefault(c => c.ContactType == ContactType.Address);
+    var phone = Model.FirstOrDefault(c => c.ContactType == ContactType.Phone);
+    var email = Model.FirstOrDefault(c => c.ContactType == ContactType.Email);
+}
+
+
+<div class="col-lg-3 col-md-6 footer-contact">
+    <h4>تماس با ما</h4>
+    <p>
+        @foreach (var item in Model.Where(c => c.ContactType == ContactType.Address))
+        {
+            @address.Value
+            @Html.Raw("<br/>")
+        }
+        <br />
+        @foreach (var item in Model.Where(c => c.ContactType == ContactType.Phone))
+        {
+            <strong>تلفن:</strong>@phone.Value
+            @Html.Raw("<br/>")
+        }
+        @foreach (var item in Model.Where(c => c.ContactType == ContactType.Fax))
+        {
+            <strong>فکس:</strong>@phone.Value
+            @Html.Raw("<br/>")
+        }
+
+        @foreach (var item in Model.Where(c => c.ContactType == ContactType.Email))
+        {
+            <strong>ایمیل:</strong> @email.Value
+            @Html.Raw("<br/>")
+        }
+    </p>
+</div>
+

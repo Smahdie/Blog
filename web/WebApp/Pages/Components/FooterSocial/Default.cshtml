@@ -1,0 +1,13 @@
+﻿@using Core.Dtos.ContactInfoDtos
+@model List<ContactInfoListDto>
+
+<div class="social-links mt-3">
+    @{
+        var socials = Model.Where(c => c.ContactType >= ContactType.Instagram && c.ContactType <= ContactType.LinkedIn).OrderBy(c=>c.ContactType).ThenBy(c=>c.Id);
+        foreach (var item in socials)
+        {
+            var typeName = item.ContactType.ToString().ToLower();
+            <a href="@item.Value" target="_blank" rel="nofollow" class="@typeName"><i class="bx bxl-@typeName"></i></a>
+        }
+    }
+</div>

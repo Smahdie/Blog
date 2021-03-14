@@ -1,0 +1,90 @@
+﻿@page
+
+@inject IOptions<UploadAddresses> uploadAddresses
+
+@model CreateModel
+
+@{
+    ViewData["Title"] = "ایجاد اسلایدر";
+    ViewData["BreadCrumb"] = new List<BreadCrumbDto> { new BreadCrumbDto { Text = "اسلایدر ها", Href = Url.Page("Index") } };
+}
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">@ViewData["Title"]</h3>
+        </div>
+        <div class="card-body">
+            <div class="box">
+                <form asp-antiforgery="true"
+                      data-ajax="true"
+                      data-ajax-method="POST"
+                      data-ajax-success="ajaxOnSuccess">
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label asp-for="Input.Title"></label>
+                            <input asp-for="Input.Title" class="form-control" />
+                            <span asp-validation-for="Input.Title" class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Heading"></label>
+                            <input asp-for="Input.Heading" class="form-control" />
+                            <span asp-validation-for="Input.Heading" class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Description"></label>
+                            <textarea asp-for="Input.Description" class="form-control"></textarea>
+                            <span asp-validation-for="Input.Description" class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Link"></label>
+                            <input asp-for="Input.Link" class="form-control" />
+                            <span asp-validation-for="Input.Link" class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.LinkText"></label>
+                            <input asp-for="Input.LinkText" class="form-control" />
+                            <span asp-validation-for="Input.LinkText" class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.ImagePath"></label>
+                            <div class="dropzone dropzone-file-area" data-upload-address="@uploadAddresses.Value.SliderImage">
+                                <input class="address-holder" type="hidden" asp-for="Input.ImagePath" />
+                                <div class="dz-default dz-message">
+                                    <h3 class="sbold">فایل را بکشید و در کادر رها کنید</h3>
+                                    <span>یا اینجا کلیک کنید و انتخاب کنید</span>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Input.ImagePath" class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" type="checkbox" asp-for="Input.IsActive">
+                                <label class="custom-control-label" asp-for="Input.IsActive"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-footer text-left">
+                        <button type="submit" class="btn btn-primary">تایید</button>
+                        <a asp-page="Index" class="btn btn-default">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/libs/dropzone/dropzone.min.js"></script>
+}
+@section Styles{
+    <link href="~/libs/dropzone/dropzone.min.css" rel="stylesheet" />
+}

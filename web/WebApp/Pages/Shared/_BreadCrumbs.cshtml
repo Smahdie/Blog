@@ -1,0 +1,20 @@
+﻿@{
+    var breadCrumbs = ViewData["BreadCrumb"] as List<BreadCrumbDto>;
+}
+
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+        <ol>
+            <li><a href="/">خانه</a></li>
+            @if (breadCrumbs != null)
+            {
+                foreach (var item in breadCrumbs)
+                {
+                    <li><a href="@item.Href">@item.Text</a></li>
+                }
+            }
+            <li>@ViewData["BreadCrumbTitle"]</li>
+        </ol>
+        <h2>@ViewData["PageHeading"]</h2>
+    </div>
+</section>

@@ -1,0 +1,130 @@
+﻿[
+  //panel
+  {
+    "outputFileName": "wwwroot/panel_assets/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/panel_assets/js/site.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/panel_assets/js/Pages/Menus/create.min.js",
+    "inputFiles": [
+      "wwwroot/panel_assets/js/Pages/Menus/create.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/panel_build/layout/first.min.js",
+    "inputFiles": [
+      "wwwroot/libs/jquery/jquery.min.js",
+      "wwwroot/libs/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js",
+      "wwwroot/panel_assets/js/requiredif",
+      "wwwroot/libs/bootstrap/js/bootstrap.bundle.min.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/panel_build/layout/last.min.js",
+    "inputFiles": [
+      "wwwroot/libs/jquery-slimscroll/jquery.slimscroll.min.js",
+      "wwwroot/libs/fastclick/fastclick.min.js",
+      "wwwroot/libs/admin-lte/js/adminlte.min.js",
+      "wwwroot/libs/toastr.js/toastr.min.js"
+
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/panel_build/layout/style.min.css",
+    "inputFiles": [
+      "wwwroot/libs/bootstrap/css/bootstrap.min.css",
+      "wwwroot/libs/bootstrap-rtl/css/bootstrap-rtl.min.css",
+      "wwwroot/libs/font-awesome/css/regular.min.css",
+      "wwwroot/libs/font-awesome/css/solid.min.css",
+      "wwwroot/libs/font-awesome/css/fontawesome.min.css",
+      "wwwroot/libs/toastr.js/toastr.min.css",
+      "wwwroot/plugins/datepicker/jquery.md.bootstrap.datetimepicker.style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/panel_build/layout/account.min.js",
+    "inputFiles": [
+      "wwwroot/libs/jquery/jquery.min.js",
+      "wwwroot/libs/bootstrap/js/bootstrap.min.js",
+      "wwwroot/libs/icheck/icheck.min.js",
+      "wwwroot/libs/admin-lte/js/adminlte.min.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/panel_build/layout/account.min.css",
+    "inputFiles": [
+      "wwwroot/libs/bootstrap/css/bootstrap.min.css",
+      "wwwroot/libs/bootstrap-rtl/css/bootstrap-rtl.min.css",
+      "wwwroot/libs/font-awesome/css/solid.min.css",
+      "wwwroot/libs/font-awesome/css/fontawesome.min.css",
+      "wwwroot/libs/ionicons/css/ionicons.min.css",
+      "wwwroot/libs/admin-lte/css/AdminLTE.min.css",
+      "wwwroot/libs/icheck/skins/square/blue.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/panel_build/pages/Contents/assets.min.js",
+    "inputFiles": [
+      "wwwroot/libs/select2/js/select2.min.js",
+      "wwwroot/libs/summernote/summernote-bs4.min.js",
+      "wwwroot/libs/dropzone/dropzone.min.js",
+      "wwwroot/libs/jstree/jstree.min.js",
+      "wwwroot/panel_assets/js/pages/Contents/create.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/panel_build/pages/Contents/assets.min.css",
+    "inputFiles": [
+      "wwwroot/libs/select2/css/select2.min.css",
+      "wwwroot/libs/summernote/summernote-bs4.min.css",
+      "wwwroot/libs/dropzone/dropzone.min.css",
+      "wwwroot/libs/jstree/themes/default/style.min.css"
+    ]
+  },
+
+  //site
+  {
+    "outputFileName": "wwwroot/site_assets/js/Pages/Blog/Details.min.js",
+    "inputFiles": [
+      "wwwroot/site_assets/js/Pages/Blog/Details.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/site_build/layout/scripts.min.js",
+    "inputFiles": [
+      "wwwroot/site_assets/vendor/jquery/jquery.min.js",
+      "wwwroot/site_assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
+      "wwwroot/site_assets/vendor/jquery.easing/jquery.easing.min.js",
+      "wwwroot/site_assets/vendor/jquery-sticky/jquery.sticky.js",
+      "wwwroot/libs/toastr.js/toastr.min.js",
+      "wwwroot/site_assets/js/main.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/site_build/layout/style.min.css",
+    "inputFiles": [
+      "wwwroot/site_assets/vendor/bootstrap/css/bootstrap.min.css",
+      "wwwroot/site_assets/vendor/icofont/icofont.min.css",
+      "wwwroot/site_assets/vendor/boxicons/css/boxicons.min.css",
+      "wwwroot/site_assets/vendor/animate.css/animate.min.css",
+      "wwwroot/libs/toastr.js/toastr.min.css",
+      "wwwroot/site_assets/css/style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/site_build/validation/scripts.min.js",
+    "inputFiles": [
+      "wwwroot/libs/jquery-validate/jquery.validate.min.js",
+      "wwwroot/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/site_build/pages/blog/details.min.js",
+    "inputFiles": [
+      "wwwroot/libs/js-cookie/js.cookie.min.js",
+      "wwwroot/site_assets/js/Pages/Blog/Details.min.js"
+    ]
+  }
+]

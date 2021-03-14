@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    @{
+        var applicationName = "برند شما";
+        if (ViewData["Title"] != null)
+        {
+            <title>@applicationName | @ViewData["Title"]</title>
+        }
+        else
+        {
+            <title>@applicationName</title>
+        }
+    }
+    <meta content="@ViewData["Description"]" name="description">
+    <meta content="" name="keywords">
+
+    <link href="~/site_assets/img/favicon.png" rel="icon">
+    <link href="~/site_assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <link href="~/site_build/layout/style.min.css" rel="stylesheet">
+</head>
+
+<body class="rtl @ViewData["BodyClass"]">
+    @await Component.InvokeAsync("TopBar")
+
+    @await Component.InvokeAsync("Header")
+
+    @RenderBody()
+
+    <footer id="footer">
+
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    @await Component.InvokeAsync("FooterMenu", new { keyword = "useful_link" })
+
+                    @await Component.InvokeAsync("FooterMenu", new { keyword = "our_services" })
+
+                    @await Component.InvokeAsync("FooterContact")
+
+                    <div class="col-lg-3 col-md-6 footer-info">
+
+                        @await Component.InvokeAsync("FooterAbout")
+
+                        @await Component.InvokeAsync("FooterSocial")
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                &copy; تمامی حقوق این سایت متعلق به <strong><span>برند شما</span></strong> است.
+            </div>
+        </div>
+
+    </footer>
+
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+    <script src="~/site_build/layout/scripts.min.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+</body>
+
+</html>
+

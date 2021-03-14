@@ -1,0 +1,35 @@
+﻿@using Core.Dtos.CommonDtos
+@{
+    var searchModel = ViewData["SearchModel"] as BaseGridDto;
+}
+
+<div class="card collapsed-card" id="AdvancedSearchBox">
+    <div class="card-header">
+        <h3 class="card-title">جستجو در نتایج</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <form asp-antiforgery="true"
+              data-ajax="true"
+              data-ajax-method="POST"
+              data-ajax-success="markCurrentSort"
+              data-ajax-update="#grid-holder"
+              autocomplete="off"
+              id="AdvancedSearchForm" >
+            <input type="hidden" id="ThisPageIndex" name="ThisPageIndex" value="@searchModel.ThisPageIndex" />
+            <input type="hidden" id="PageOrder" name="PageOrder" value="@searchModel.PageOrder" />
+            <input type="hidden" id="PageOrderBy" name="PageOrderBy" value="@searchModel.PageOrderBy" />
+            <div class="row">
+                @Html.MakeSearchForm(ViewData["SearchModel"])
+            </div>
+            <div class="text-left">
+                <input type="button" onclick="DoAdvancedSearch()" class="btn btn-primary" value="پیدا کن" />
+                <a class="btn btn-default ml-2" onclick="ClearFilters();">پاک کردن فیلترها</a>
+            </div>
+        </form>
+    </div>
+</div>

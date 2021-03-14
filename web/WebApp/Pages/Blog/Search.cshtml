@@ -1,0 +1,53 @@
+﻿@page "{query}/Page-{pageNumber=1}"
+
+@model WebApp.Pages.Blog.SearchModel
+
+@{ 
+    ViewData["PageHeading"] = $"جستجو برای «{Model.RequestQuery}»";
+    ViewData["BreadCrumbTitle"] = "جستجو";
+    ViewData["BreadCrumb"] = new List<BreadCrumbDto> { new BreadCrumbDto { Text = "بلاگ", Href= Url.Page("List", "All") } };
+}
+
+<main id="main">
+    @await Html.PartialAsync("_BreadCrumbs")
+
+    <section id="blog" class="blog">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8 entries">
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <p class="font-125 alert alert-secondary text-center mt-5">@Model.ErrorMessage</p>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.Contents)
+                        {
+                            @await Html.PartialAsync("_BlogListItem", item)
+                        }
+
+                        <div class="blog-pagination">
+                            @Html.Pagination(
+                            Model.Contents,
+                            current => Url.Page("Search", new { pageNumber = current, query = Model.RequestQuery }),
+                            PaginatedStyle.NumbersWithFirstPreviousNextLast,
+                            new PaginatedOptions
+                            {
+                                NextLabel = "بعدی",
+                                PreviousLabel = "قبلی",
+                                FirstLabel = "اولین",
+                                LastLabel = "آخرین"
+                            })
+                        </div>
+                    }
+
+                </div>
+
+                @await Html.PartialAsync("_BlogSidebar")
+
+            </div>
+        </div>
+    </section>
+</main>

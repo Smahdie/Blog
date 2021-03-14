@@ -1,0 +1,37 @@
+﻿@using Core.Dtos.ContentDtos
+@model ContentListDto
+
+@{
+    var href = $"/blog/details/{Model.Id}/{Model.Slug}";
+}
+
+<article class="entry">
+
+    <div class="entry-img">
+        <img src="@Model.ImagePath.GetSize("730x487")" alt="@Model.Title" class="img-fluid" />
+    </div>
+
+    <h2 class="entry-title">
+        <a href="@href">@Model.Title</a>
+    </h2>
+
+    <div class="entry-meta">
+        <ul>
+            <li class="d-flex align-items-center">
+                <i class="icofont-wall-clock"></i>
+                <a href="@href">
+                    <time datetime="@Model.CreatedOn">@Model.PersianCreatedOn</time>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="entry-content">
+        <p>
+            @Model.Summary
+        </p>
+        <div class="read-more">
+            <a href="@href">ادامه مطلب</a>
+        </div>
+    </div>
+</article>

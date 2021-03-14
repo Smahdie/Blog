@@ -1,0 +1,80 @@
+﻿@page "{id}/{slug}"
+@model WebApp.Pages.Blog.DetailsModel
+
+@{
+    ViewData["BreadCrumbTitle"] = ViewData["PageHeading"] = Model.Data.Title;
+    ViewData["BreadCrumb"] = new List<BreadCrumbDto> { new BreadCrumbDto { Text = "بلاگ", Href = Url.Page("List", "All") } };
+}
+
+<main id="main">
+    @await Html.PartialAsync("_BreadCrumbs")
+
+    <section id="blog" class="blog">
+        <input type="hidden" id="blog-id" value="@Model.Data.Id" />
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8 entries">
+
+                    <article class="entry entry-single">
+
+                        <div class="entry-img">
+                            <img src="@Model.Data.ImagePath.GetSize("730x487")" alt="@Model.Data.Title" class="img-fluid" />
+                        </div>
+
+                        <h2 class="entry-title">
+                            @Model.Data.Title
+                        </h2>
+
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i><time datetime="@Model.Data.CreatedOn">@Model.Data.PersianCreatedOn</time></li>
+                                <li class="d-flex align-items-center"><i class="icofont-eye"></i> @Model.Data.ViewCount بازدید</li>
+                            </ul>
+                        </div>
+
+                        <div class="entry-content">
+                            @Html.Raw(Model.Data.Body)
+                        </div>
+
+                        <div class="entry-footer clearfix">
+                            <div class="cats-tags">
+                                <i class="icofont-folder"></i>
+                                <ul class="cats">
+                                    @foreach (var item in Model.Data.Categories)
+                                    {
+                                        <li>
+                                            <a asp-page="list" asp-route-handler="Category" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+
+                                <i class="icofont-tags"></i>
+                                <ul class="tags">
+                                    @foreach (var item in Model.Data.Tags)
+                                    {
+                                        <li>
+                                            <a asp-page="list" asp-route-handler="Tag" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                    </article>
+
+                </div>
+
+                @await Html.PartialAsync("_BlogSidebar")
+
+            </div>
+
+        </div>
+    </section>
+</main>
+
+
+@section Scripts{
+    <script src="~/site_build/pages/blog/details.min.js" asp-append-version="true"></script>
+}

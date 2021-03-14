@@ -1,0 +1,60 @@
+﻿@inject Admin.Services.Profile.ProfileManager ProfileManager
+
+<ul class="navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+    </li>
+</ul>
+
+<!-- Right navbar links -->
+<ul class="navbar-nav mr-auto">
+
+    @*<li class="nav-item dropdown">
+        <a class="nav-link icon" data-toggle="dropdown" href="#">
+            <i class="far fa-bell"></i>
+            <span class="badge badge-warning navbar-badge">15</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-item dropdown-header">15 پیام خوانده نشده</span>
+            <div class="dropdown-divider"></div>
+            <a href="/Contacts/Details?id=1" class="dropdown-item">
+                سلام، چه طوری؟ این یک پیام ..
+                <span class="float-left datetime">3 دقیقه قبل</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="/Contacts/Details?id=2" class="dropdown-item">
+                سلام، چه طوری؟ این یک پیام ..
+                <span class="float-left datetime">12 ساعت قبل</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="/Contacts/Index?isread=false" class="dropdown-item dropdown-footer">مشاهده تمام پیام ها</a>
+        </div>
+    </li>*@
+
+    <!-- User Menu -->
+    <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+            <img src="@($"/panel_assets/img/avatar-{ProfileManager.CurrentUser.Gender.ToString().ToLower()}.jpg")" class="img-circle elevation-2 img-icon" alt="User Image">
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-item dropdown-header">@ProfileManager.CurrentUser.UserName عزیز، خوش آمدید!</span>
+            <div class="dropdown-divider"></div>
+
+            <a href="/Settings/Profile" class="dropdown-item">
+                <i class="fas fa-user mr-2"></i> ویرایش اطلاعات
+            </a>
+
+            <a href="/Settings/ChangePassword" class="dropdown-item">
+                <i class="fas fa-key mr-2"></i> تغییر رمز عبور
+            </a>
+
+            <div class="dropdown-divider"></div>
+            <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                <button type="submit" class="btn btn-flat">
+                    <i class="fas fa-power-off mr-2"></i> خروج از حساب کاربری
+                </button>
+            </form>
+        </div>
+    </li>
+</ul>
+

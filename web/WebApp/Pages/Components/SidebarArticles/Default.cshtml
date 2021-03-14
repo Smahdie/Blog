@@ -1,0 +1,19 @@
+﻿@using Core.Dtos.ContentDtos
+@model ListHasMoreDto<ContentListDto>
+
+@if (Model.Items.Any())
+{
+    
+    <h3 class="sidebar-title">پربازدیدترین ها</h3>
+    <div class="sidebar-item recent-posts">
+        @foreach (var item in Model.Items)
+        {
+            var href = $"/blog/details/{item.Id}/{item.Slug}";
+            <div class="post-item clearfix">
+                <img src="@item.ImagePath.GetSize("80x60")" alt="@item.Title">
+                <h4><a href="@href">@item.Title</a></h4>
+                <time datetime="@item.CreatedOn">@item.PersianCreatedOn</time>
+            </div>
+        }
+    </div>
+}

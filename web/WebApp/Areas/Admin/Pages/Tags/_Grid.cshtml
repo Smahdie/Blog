@@ -1,0 +1,60 @@
+﻿@model IndexModel
+
+@using Core.Dtos.TagDtos
+
+@{
+    var searchModel = ViewData["SearchModel"] as TagGridDto;
+}
+
+@if (Model.Categories == null || !Model.Categories.Any())
+{
+    <div class="py-3 text-blue text-center no-record">
+        <p>اطلاعاتی برای نمایش وجود ندارد.</p>
+    </div>
+}
+else
+{
+    <table class="table table-striped AdvancedGrid">
+        <thead>
+            <tr>
+                <th class="sortable">@Html.LabelFor(model => searchModel.Id)</th>
+                <th class="sortable">@Html.LabelFor(model => searchModel.Name)</th>
+                <th class="sortable">@Html.LabelFor(model => searchModel.CreatedOn)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Categories)
+            {
+                <tr data-id="@item.Id">
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.CreatedOn</td>
+                    <td>
+                        <a asp-page="/Contents/Index" asp-route-tagId="@item.Id" class="btn btn-primary btn-sm">محتواها</a>
+                        @Html.RemoveLink(item.Id.ToString())
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="13" class="text-center">
+                    @Html.Pagination(
+                        Model.Categories,
+                        current => Url.Page("Index", new { current }),
+                        PaginatedStyle.NumbersWithFirstPreviousNextLast,
+                        new PaginatedOptions
+                        {
+                            NextLabel = "بعدی",
+                            PreviousLabel = "قبلی",
+                            FirstLabel = "اولین",
+                            LastLabel = "آخرین"
+                        }
+                    )
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+}
+

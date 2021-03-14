@@ -1,0 +1,26 @@
+﻿@page
+@model IndexModel
+
+@await Component.InvokeAsync("Slider")
+
+<main id="main">
+    @await Component.InvokeAsync("Featured")
+
+    <section id="blog" class="blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 entries">
+                    @foreach (var item in Model.Contents.Items)
+                    {
+                        @await Html.PartialAsync("_BlogListItem", item)
+                    }
+                    <div class="text-center">
+                        <a class="see-all" asp-page="blog/list" asp-route-handler="all">همه مقالات بلاگ</a>
+                    </div>
+                </div>
+                @await Html.PartialAsync("_BlogSidebar")
+            </div>
+        </div>
+    </section>
+
+</main>

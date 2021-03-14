@@ -1,0 +1,53 @@
+﻿@page
+
+@using Microsoft.Extensions.Configuration
+
+@inject IConfiguration Configuration
+
+@model LoginModel
+
+@{
+    ViewData["Title"] = "ورود به پنل";
+}
+
+<p class="login-box-msg">برای استفاده از امکانات سایت، وارد شوید</p>
+<form method="post">
+    <div class="input-group mb-3">
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+            </div>
+        </div>
+        <input asp-for="Input.Email" type="email" class="form-control">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+            </div>
+        </div>
+        <input asp-for="Input.Password" type="password" class="form-control">
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <div class="icheck-primary">
+                <input type="checkbox" asp-for="Input.RememberMe">
+                <label class="form-check-label" asp-for="Input.RememberMe">
+                    مرا به خاطر داشته باش
+                </label>
+            </div>
+        </div>
+        <!-- /.col -->
+        <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">ورود</button>
+        </div>
+        <!-- /.col -->
+    </div>
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @Html.AntiForgeryToken()
+</form>
+<div class="text-center mt-3">
+    <a asp-page="./ForgotPassword">رمز عبورم را فراموش کرده ام</a><br>
+</div>

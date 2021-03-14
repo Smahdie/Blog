@@ -1,0 +1,29 @@
+﻿
+@{
+    var breadCrumbs = ViewData["BreadCrumb"] as List<BreadCrumbDto>;
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>
+                    @ViewData["Title"]
+                </h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-left mt-2 mt-sm-0">
+                    <li class="breadcrumb-item"><a href="/">داشبورد</a></li>
+                    @if (breadCrumbs != null)
+                    {
+                        foreach (var item in breadCrumbs)
+                        {
+                            <li class="breadcrumb-item"><a href="@item.Href">@item.Text</a></li>
+                        }
+                    }
+                    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>

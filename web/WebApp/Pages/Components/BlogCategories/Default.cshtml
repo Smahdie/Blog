@@ -1,0 +1,15 @@
+﻿@using Core.Dtos.CategoryDtos
+@model List<CategoryListItemDto>
+
+@if (Model.Any())
+{
+    <h3 class="sidebar-title">دسته بندی ها</h3>
+    <div class="sidebar-item categories">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li><a asp-page="/blog/list" asp-route-handler="Category" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Name</a></li>
+            }
+        </ul>
+    </div>
+}

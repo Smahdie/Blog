@@ -1,0 +1,58 @@
+﻿@page
+
+@model EditModel
+
+@{
+    ViewData["Title"] = "ویرایش راه ارتباطی";
+    ViewData["BreadCrumb"] = new List<BreadCrumbDto> { new BreadCrumbDto { Text = "راههای ارتباطی", Href = Url.Page("Index") } };
+    ViewData["BodyClass"] = "smallForm";
+}
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">@ViewData["Title"]</h3>
+        </div>
+        <div class="card-body">
+            <div class="box">
+                <form asp-antiforgery="true"
+                      data-ajax="true"
+                      data-ajax-method="POST"
+                      data-ajax-success="ajaxOnSuccess">
+
+                    <input type="hidden" asp-for="Input.Id" />
+
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label asp-for="Input.ContactType"></label>
+                            <select asp-for="Input.ContactType"
+                                    class="form-control"
+                                    asp-items="Html.GetEnumSelectList<ContactType>()">
+                                <option>انتخاب کنید</option>
+                            </select>
+                            <span asp-validation-for="Input.ContactType" class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Value"></label>
+                            <input asp-for="Input.Value" class="form-control" />
+                            <span asp-validation-for="Input.Value" class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" type="checkbox" asp-for="Input.IsActive">
+                                <label class="custom-control-label" asp-for="Input.IsActive"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-footer text-left">
+                        <button type="submit" class="btn btn-primary">تایید</button>
+                        <a asp-page="Index" class="btn btn-default">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

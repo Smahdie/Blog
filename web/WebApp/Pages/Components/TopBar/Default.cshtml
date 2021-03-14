@@ -1,0 +1,36 @@
+﻿@using Core.Dtos.ContactInfoDtos
+@model List<ContactInfoListDto>
+
+@{ 
+    var email = Model.FirstOrDefault(c => c.ContactType == ContactType.Email);
+    var phone = Model.FirstOrDefault(c => c.ContactType == ContactType.Phone);
+}
+
+<section id="topbar" class="d-none d-lg-block">
+    <div class="container d-flex">
+        <div class="contact-info">
+            @if (email != null)
+            {
+                <i class="icofont-envelope"></i><a href="mailto:@email.Value">@email.Value</a>
+            }
+            @if (phone != null)
+            {
+                <i class="icofont-phone"></i>@phone.Value
+            }
+        </div>
+        <div class="social-links">
+            @{
+                var socials = Model
+                    .Where(c => c.ContactType >= ContactType.Instagram && c.ContactType <= ContactType.LinkedIn)
+                    .OrderBy(c => c.ContactType)
+                    .ThenBy(c => c.Id);
+
+                foreach (var item in socials)
+                {
+                    var typeName = item.ContactType.ToString().ToLower();
+                    <a href="@item.Value" target="_blank" rel="nofollow" class="@typeName"><i class="icofont-@typeName"></i></a>
+                }
+            }
+        </div>
+    </div>
+</section>

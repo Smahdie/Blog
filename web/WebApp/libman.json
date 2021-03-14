@@ -1,0 +1,108 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    //panel
+    {
+      "library": "admin-lte@3.0.5",
+      "destination": "wwwroot/libs/admin-lte/"
+    },
+    {
+      "library": "twitter-bootstrap@4.5.3",
+      "destination": "wwwroot/libs/bootstrap/"
+    },
+    {
+      "library": "bootstrap-rtl@3.4.0",
+      "destination": "wwwroot/libs/bootstrap-rtl/"
+    },
+    {
+      "library": "popper.js@2.6.0",
+      "destination": "wwwroot/libs/popper.js/"
+    },
+    {
+      "library": "summernote@0.8.18",
+      "destination": "wwwroot/libs/summernote/"
+    },
+    {
+      "library": "fastclick@1.0.6",
+      "destination": "wwwroot/libs/fastclick/"
+    },
+    {
+      "library": "font-awesome@5.15.1",
+      "destination": "wwwroot/libs/font-awesome/"
+    },
+    {
+      "library": "jquery@3.5.1",
+      "destination": "wwwroot/libs/jquery/",
+      "files": [
+        "jquery.min.js",
+        "jquery.js",
+        "jquery.min.map"
+      ]
+    },
+    {
+      "library": "jqueryui@1.12.1",
+      "destination": "wwwroot/libs/jqueryui",
+      "files": [
+        "jquery-ui.js",
+        "jquery-ui.min.js"
+      ]
+    },
+    {
+      "library": "jquery-ajax-unobtrusive@3.2.6",
+      "destination": "wwwroot/libs/jquery-ajax-unobtrusive/"
+    },
+    {
+      "library": "jquery-validate@1.19.2",
+      "destination": "wwwroot/libs/jquery-validate/"
+    },
+    {
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/libs/jquery-validation-unobtrusive/"
+    },
+    {
+      "library": "filepond@4.25.1",
+      "destination": "wwwroot/libs/filepond/"
+    },
+    {
+      "library": "filepond-plugin-image-preview@4.6.4",
+      "provider": "jsdelivr",
+      "destination": "wwwroot/libs/filepond-plugin-image-preview/"
+    },
+    {
+      "library": "filepond-plugin-image-exif-orientation@1.0.9",
+      "provider": "jsdelivr",
+      "destination": "wwwroot/libs/filepond-plugin-image-exif-orientation/"
+    },
+    {
+      "library": "dropzone@5.7.2",
+      "destination": "wwwroot/libs/dropzone/"
+    },
+    {
+      "library": "select2@4.0.13",
+      "destination": "wwwroot/libs/select2/"
+    },
+    {
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/libs/toastr.js/"
+    },
+    {
+      "library": "jstree@3.3.11",
+      "destination": "wwwroot/libs/jstree/"
+    },
+    {
+      "library": "handlebars.js@4.7.6",
+      "destination": "wwwroot/libs/handlebars.js"
+    },
+
+    //site
+    {
+      "library": "js-cookie@2.2.1",
+      "destination": "wwwroot/libs/js-cookie/"
+    },
+    {
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/libs/toastr.js/"
+    }
+  ]
+}
