@@ -10,9 +10,6 @@ namespace Core.Models.Enums
         [Display(Name = "تماس با ما")]
         ContactUs = 2,
 
-        [Display(Name = "بلاگ")]
-        Blog = 3,
-
         [Display(Name = "دسته")]
         Category = 4,
 

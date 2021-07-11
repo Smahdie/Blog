@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-	<ProjectReference Include="..\..\packages\Pack.FileUpload\Pack.FileUpload.csproj" />
-	<ProjectReference Include="..\..\packages\Pack.ImageResize\Pack.ImageResize.csproj" />
+    <ProjectReference Include="..\..\components\Components.FileUpload\Component.FileUpload.csproj" />
+    <ProjectReference Include="..\..\components\Components.ImageResize\Component.ImageResize.csproj" />
     <ProjectReference Include="..\..\src\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 

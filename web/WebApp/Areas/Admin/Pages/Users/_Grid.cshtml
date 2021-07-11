@@ -32,7 +32,7 @@ else
                     <td>@item.UserName</td>
                     <td>@item.Email</td>
                     <td>@item.PhoneNumber</td>
-                    <td>@MyHtmlHelper.GetDisplayName(item.Gender)</td>
+                    <td>@item.Gender.EnumDisplayName()</td>
                     <td>@Html.StatusBadge(item.Id, item.IsActive)</td>
                     <td>
                         <a title="تغییر رمز عبور" class="btn btn-primary btn-sm" asp-page="ChangePassword" asp-route-id="@item.Id"><i class="fa fa-key"></i></a>

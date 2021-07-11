@@ -94,6 +94,10 @@
       "library": "handlebars.js@4.7.6",
       "destination": "wwwroot/libs/handlebars.js"
     },
+    {
+      "library": "iCheck@1.0.3",
+      "destination": "wwwroot/libs/iCheck"
+    },
 
     //site
     {

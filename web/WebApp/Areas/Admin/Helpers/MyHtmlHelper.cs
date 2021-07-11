@@ -20,13 +20,27 @@ namespace Admin.Helpers
             return result ?? o.ToString();
         };
 
-        public static IHtmlContent StatusBadge(this IHtmlHelper htmlHelper, string id, bool? value, string yesText = "فعال",string noText="غیر فعال", string yesBadge = "badge-success", string noBadge = "badge-secondary")
+        public static string EnumDisplayName(this Enum item)
         {
-            var template = "<a class=\"StatusBtn\" href=\"#\" data-id=\"{2}\"><span class=\"badge {0}\">{1}</span></a>";
+            var type = item.GetType();
+            var member = type.GetMember(Enum.GetName(type, item));
+            DisplayAttribute displayName = (DisplayAttribute)member[0].GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault();
+
+            if (displayName != null)
+            {
+                return displayName.Name;
+            }
+
+            return item.ToString();
+        }
+
+        public static IHtmlContent StatusBadge(this IHtmlHelper htmlHelper, string id, bool? value, string handler= "ChangeStatus", string yesText = "فعال",string noText="غیر فعال", string yesBadge = "badge-success", string noBadge = "badge-secondary")
+        {
+            var template = "<a class=\"StatusBtn\" href=\"#\" data-id=\"{2}\" data-handler=\"{3}\" ><span class=\"badge {0}\">{1}</span></a>";
             if (value == true)
-                return new HtmlString(string.Format(template,yesBadge,yesText, id));
-            if(value == false)
-                return new HtmlString(string.Format(template, noBadge, noText, id));
+                return new HtmlString(string.Format(template, yesBadge, yesText, id, handler));
+            if (value == false)
+                return new HtmlString(string.Format(template, noBadge, noText, id, handler));
             return new HtmlString(string.Format(template, "badge-light", "نامشخص", id));
         }
 

@@ -1,4 +1,5 @@
 ﻿using Canducci.Pagination;
+using Core.Dtos.CommonDtos;
 using Core.Dtos.ContentDtos;
 using Core.Dtos.Settings;
 using Core.Interfaces.CategoryProviders;
@@ -8,6 +9,7 @@ using Core.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebApp.Pages.Blog
@@ -40,6 +42,7 @@ namespace WebApp.Pages.Blog
         {
             ViewData["Title"] = $"بلاگ - صفحه {pageNumber}";
             RequestHandler = "All";
+            ViewData["BreadCrumbTitle"] = ViewData["PageHeading"] = "بلاگ";
             var (Items, TotalCount) = await _contentQueryProvider.GetAllAsync(new ContentListRequestDto { Type = ContentType.Article, PageIndex = pageNumber});
             Contents = new StaticPaginated<ContentListDto>(Items, pageNumber, _appSettings.PageSize, TotalCount);
         }
@@ -60,6 +63,7 @@ namespace WebApp.Pages.Blog
                 return RedirectToPage("List", new { handler = RequestHandler, pageNumber, tag.Id, tag.Slug });
             }
             ViewData["Title"] = $"بلاگ - برچسب {tag.Name} - صفحه {pageNumber}";
+            ViewData["BreadCrumbTitle"] = ViewData["PageHeading"] = tag.Name;
             var (Items, TotalCount) = await _contentQueryProvider.GetAllAsync(new ContentListRequestDto { Type = ContentType.Article, PageIndex = pageNumber, TagId = id });
             Contents = new StaticPaginated<ContentListDto>(Items, pageNumber, _appSettings.PageSize, TotalCount);
             return Page();
@@ -80,7 +84,13 @@ namespace WebApp.Pages.Blog
             {
                 return RedirectToPage("List", new { handler = RequestHandler, pageNumber, category.Id, category.Slug });
             }
+            
             ViewData["Title"] = $"بلاگ - دسته {category.Name} - صفحه {pageNumber}";
+            
+            ViewData["BreadCrumbTitle"] = ViewData["PageHeading"] = category.Name;
+
+            ViewData["BreadCrumb"] = new List<BreadCrumbDto> { new BreadCrumbDto { Text = "بلاگ", Href = Url.Page("List", "all") } };
+
             var (Items, TotalCount) = await _contentQueryProvider.GetAllAsync(new ContentListRequestDto { Type = ContentType.Article, PageIndex = pageNumber, CategoryId = id });
             Contents = new StaticPaginated<ContentListDto>(Items, pageNumber, _appSettings.PageSize, TotalCount);
 

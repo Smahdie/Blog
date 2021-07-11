@@ -1,4 +1,4 @@
-﻿using Pack.ImageResize.Dtos;
+﻿using Component.ImageResize.Dtos;
 using System.Collections.Generic;
 
 namespace Admin.Models

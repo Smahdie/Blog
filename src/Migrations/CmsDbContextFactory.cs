@@ -9,7 +9,7 @@ namespace Migrations
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            var connectionString = @"Server=.;Database=Roozbeh;Trusted_Connection=True;MultipleActiveResultSets=true";
+            var connectionString = @"Server=.;Database=Blog;Trusted_Connection=True;MultipleActiveResultSets=true";
             optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly("Migrations"));
 
             return new ApplicationDbContext(optionsBuilder.Options);

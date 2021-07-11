@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\packages\Pack.SlugGenerator\Pack.SlugGenerator.csproj" />
+    <ProjectReference Include="..\..\components\Component.SlugGenerator\Component.SlugGenerator.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 

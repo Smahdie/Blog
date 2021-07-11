@@ -80,7 +80,7 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </span>
                                         </td>
-                                        <td>@MyHtmlHelper.GetDisplayName(item.TargetType)</td>
+                                        <td>@item.TargetType.EnumDisplayName()</td>
                                         <td>@(string.IsNullOrEmpty(item.CategoryName)? "---" : item.CategoryName)</td>
                                         <td>@(string.IsNullOrEmpty(item.PageTitle)? "---" : item.PageTitle)</td>
                                         <td>

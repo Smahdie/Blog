@@ -27,7 +27,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item"><a asp-page="/Sliders/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Sliders/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
                         <li class="nav-item"><a asp-page="/Sliders/Create" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Sliders/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>ایجاد اسلایدر</p></a></li>
-                        <li class="d-none"><a asp-page="/Sliders/Edit"  asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Sliders/Edit") ? "active" : "")"><i class="nav-icon fa fa-circle-o"></i> <p>ویرایش اسلایدر</p></a></li>
+                        <li class="d-none"><a asp-page="/Sliders/Edit" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Sliders/Edit") ? "active" : "")"><i class="nav-icon fa fa-circle-o"></i> <p>ویرایش اسلایدر</p></a></li>
                     </ul>
                 </li>
 
@@ -131,6 +131,21 @@
                         <li class="nav-item"><a asp-page="/Menus/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Menus/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
                         <li class="d-none"><a href="#" class="nav-link @(Html.IsMenuActive("/Admin/Menus/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>ایجاد منو</p></a></li>
                         <li class="d-none"><a href="#" class="nav-link @(Html.IsMenuActive("/Admin/Menus/Edit") ? "active" : "")"><i class="fa fa-circle-o"></i><p>ویرایش منو</p></a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @(Html.IsMenuActive("/Admin/Languages") ? "menu-open" : "")">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-th-large"></i>
+                        <p>
+                            زبان ها
+                            <i class="fas fa-angle-left left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item"><a asp-page="/Languages/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Language/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
+                        <li class="nav-item"><a asp-page="/Languages/Create" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Languages/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>ایجاد زبان</p></a></li>
+                        <li class="d-none"><a href="#" class="nav-link @(Html.IsMenuActive("/Admin/Languages/Edit") ? "active" : "")"><i class="fa fa-circle-o"></i><p>ویرایش زبان</p></a></li>
                     </ul>
                 </li>
 

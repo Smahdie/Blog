@@ -1,4 +1,4 @@
-﻿using Pack.FileUpload.Dtos;
+﻿using Component.FileUpload.Dtos;
 
 namespace Admin.Models
 {

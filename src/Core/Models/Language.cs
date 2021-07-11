@@ -8,7 +8,9 @@ namespace Core.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
+        public bool IsActive { get; set; }
         public bool IsDefault { get; set; }
         public DateTime CreatedOn { get; set; }
+        public DateTime? UpdatedOn { get; set; }
     }
 }

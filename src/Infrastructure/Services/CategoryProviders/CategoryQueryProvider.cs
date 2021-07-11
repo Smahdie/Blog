@@ -1,7 +1,7 @@
 ﻿using Core.Dtos.CategoryDtos;
 using Core.Interfaces.CategoryProviders;
 using Microsoft.EntityFrameworkCore;
-using Pack.SlugGenerator;
+using Component.SlugGenerator;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

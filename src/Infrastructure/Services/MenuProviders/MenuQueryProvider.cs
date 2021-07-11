@@ -6,7 +6,7 @@ using Core.Interfaces.MenuProviders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
-using Pack.SlugGenerator;
+using Component.SlugGenerator;
 using System;
 using System.Linq;
 using System.Text.Json;

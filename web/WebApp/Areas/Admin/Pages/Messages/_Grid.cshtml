@@ -39,7 +39,7 @@ else
                     <td>@item.Email</td>
                     <td>@item.PhoneNumber</td>
                     <td>@item.Text</td>
-                    <td>@Html.StatusBadge(item.Id.ToString(), item.IsRead, "خوانده شده", "خوانده نشده", "badge-secondary", "badge-warning")</td>
+                    <td>@Html.StatusBadge(item.Id.ToString(), item.IsRead,yesText: "خوانده شده", noText: "خوانده نشده", yesBadge: "badge-secondary", noBadge: "badge-warning")</td>
                     <td dir="ltr" class="text-right">@item.CreatedOn</td>
                     <td>
                         @Html.DetailsLink(Url.Page("Details", new { item.Id }))

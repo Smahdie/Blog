@@ -1,6 +1,7 @@
 ﻿using Core.Models;
 using Core.Models.Manager;
 using Infrastructure.Data.Configuration;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,7 @@ namespace Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            CreateDefaultAdmin(builder);
 
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new CategoryTranslationConfiguration());
@@ -44,6 +46,24 @@ namespace Infrastructure
             builder.ApplyConfiguration(new PermissionConfiguration());
             builder.ApplyConfiguration(new SliderConfiguration());
             builder.ApplyConfiguration(new TagConfiguration());
+        }
+
+        private static void CreateDefaultAdmin(ModelBuilder builder)
+        {
+            var hasher = new PasswordHasher<Manager>();
+            builder.Entity<Manager>().HasData(
+                new IdentityUser
+                {
+                    Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                    UserName = "Email@email.com",
+                    NormalizedUserName = "email@email.com",
+                    Email = "Email@email.com",
+                    NormalizedEmail = "email@email.com",
+                    EmailConfirmed = true,
+                    LockoutEnabled = false,
+                    PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
+                }
+            );
         }
     }
 }

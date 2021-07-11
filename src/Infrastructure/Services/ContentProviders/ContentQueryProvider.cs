@@ -9,7 +9,7 @@ using Core.Models;
 using Core.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Pack.SlugGenerator;
+using Component.SlugGenerator;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -67,7 +67,7 @@ namespace Infrastructure.Services.ContentProviders
         {
             var query = Query();
             query = query.WhereIf(dto.TagId.HasValue, c => c.Tags.Any(t => t.TagId == dto.TagId));
-            query = query.WhereIf(dto.CategoryId.HasValue, c => c.Categories.Any(t => t.CategoryId == dto.CategoryId));
+            query = query.WhereIf(dto.CategoryId.HasValue, c => c.Categories.Any(t => t.CategoryId == dto.CategoryId || t.Category.ParentId == dto.CategoryId));
             query = query.WhereIf(dto.Type.HasValue, c => c.Type == dto.Type);
             
             var totalCount = query.Count();

@@ -3,7 +3,7 @@ using Core.Dtos.TagDtos;
 using Core.Interfaces.TagProviders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Pack.SlugGenerator;
+using Component.SlugGenerator;
 using System;
 using System.Collections.Generic;
 using System.Linq;

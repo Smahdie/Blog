@@ -12,19 +12,15 @@
             {
                 case MenuMemberTargetType.Home:
                     <li><i class="bx bx-chevron-right"></i> <a href="/">صفحه اصلی</a></li>
-                    break;
-                case MenuMemberTargetType.Blog:
-                    <li><i class="bx bx-chevron-right"></i> <a asp-page="/Blog/List" asp-route-handler="All">بلاگ</a></li>
-                    break;
+                    break;                
                 case MenuMemberTargetType.ContactUs:
                     <li><i class="bx bx-chevron-right"></i> <a asp-page="/ContactUs">تماس با ما</a></li>
                     break;
                 case MenuMemberTargetType.Category:
                     if (item.Category != null)
                     {
-                        <li><i class="bx bx-chevron-right"></i> <a asp-page="/Category/Index" asp-route-id="@item.Category.Id" asp-route-slug="@item.Category.Slug">@item.Category.Name</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a sp-page="/blog/list" asp-route-handler="Category" asp-route-id="@item.Category.Id" asp-route-slug="@item.Category.Slug">@item.Category.Name</a></li>
                     }
-
                     break;
                 case MenuMemberTargetType.Page:
                     if (item.Page != null)

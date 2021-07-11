@@ -1,10 +1,6 @@
 ﻿@page "{handler}/Page-{pageNumber=1}/{id?}/{slug?}"
 @model WebApp.Pages.Blog.ListModel
 
-@{ 
-    ViewData["BreadCrumbTitle"] = ViewData["PageHeading"] = "بلاگ";
-}
-
 <main id="main">
     @await Html.PartialAsync("_BreadCrumbs")
 

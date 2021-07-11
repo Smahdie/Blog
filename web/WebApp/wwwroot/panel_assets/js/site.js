@@ -104,40 +104,6 @@ $(document).ready(function () {
                 }
             });
         });
-        //$('.select2').select2({
-        //    dir: "rtl"
-        //});
-        //$('.select2.ajax-select').select2({
-        //    dir: "rtl",
-        //    ajax: {
-        //        url: $(this).data('src'),
-        //        dataType: 'json',
-        //        data: function (params) {
-        //            var query = {
-        //                search: params.term,
-        //                page: params.page || 1
-        //            }
-        //            // Query parameters will be ?search=[term]&page=[page]
-        //            return query;
-        //        }
-        //         //expected output
-        //         // {
-        //         //  "results": [
-        //         //    {
-        //         //      "id": 1,
-        //         //      "text": "Option 1"
-        //         //    },
-        //         //    {
-        //         //      "id": 2,
-        //         //      "text": "Option 2"
-        //         //    }
-        //         //  ],
-        //         //  "pagination": {
-        //         //    "more": true
-        //         //  }
-        //         //}
-        //    }
-        //});
     }
 
    
@@ -233,31 +199,29 @@ $(document).on('click', '.StatusBtn', function () {
     var data = {
         id: $(this).data('id')
     };
-    AjaxSubmit('?handler=ChangeStatus', data, changeStatusHtml);
+    var handler = $(this).data('handler');
+    AjaxSubmit(handler, data, changeStatusHtml);
     return false;
 });
 
-function changeStatusHtml(e) {
+function changeStatusHtml(e, handler) {
     if (e.success) {
-        $(`.StatusBtn[data-id=${e.id}]`).find('span')
-            .removeClass()
-            .addClass("badge")
-            .addClass(e.badge)
-            .html(e.text);
+        SubmitAdvancedSearch();
     }
     else {
         toastr.error(e.message);
     }
 }
 
+
 $('#delete-row-button').click(function () {
     var data = {
         id : $('#delete-id').val()    
     };
-    AjaxSubmit('?handler=Delete', data, removeRowHtml);
+    AjaxSubmit(Delete, data, removeRowHtml);
 });
 
-function removeRowHtml(e) {
+function removeRowHtml(e, handler) {
     if (e.success) {
         $(`.AdvancedGrid tr[data-id="${e.id}"]`).fadeOut(300, function () { $(this).remove(); });
     }
@@ -267,7 +231,8 @@ function removeRowHtml(e) {
     $('#modal-delete').modal('hide');
 }
 
-function AjaxSubmit(url, data, successCallback) {
+function AjaxSubmit(handler, data, successCallback) {
+    url = `?handler=${handler}`;
     $.ajax({
         type: 'POST',
         url: url,
@@ -279,7 +244,7 @@ function AjaxSubmit(url, data, successCallback) {
     }).fail(function (e) {
         console.log('fail: ', e);
     }).done(function (e) {
-        successCallback(e);
+        successCallback(e, handler);
     });
 }
 

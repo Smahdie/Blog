@@ -5,6 +5,7 @@ using Core.Interfaces.CategoryProviders;
 using Core.Interfaces.ContactInfoProviders;
 using Core.Interfaces.ContentProviders;
 using Core.Interfaces.EmailProviders;
+using Core.Interfaces.LanguageProviders;
 using Core.Interfaces.MenuProviders;
 using Core.Interfaces.MessageProviders;
 using Core.Interfaces.PageProviders;
@@ -16,6 +17,7 @@ using Infrastructure.Services.CategoryProviders;
 using Infrastructure.Services.ContactInfoProviders;
 using Infrastructure.Services.ContentProviders;
 using Infrastructure.Services.EmailProviders;
+using Infrastructure.Services.LanguageProviders;
 using Infrastructure.Services.MenuProviders;
 using Infrastructure.Services.MessageProviders;
 using Infrastructure.Services.PageProviders;
@@ -46,6 +48,7 @@ namespace Infrastructure
             services.AddScoped<ISliderManager, SliderManager>();
             services.AddScoped<ITagManager, TagManager>();
             services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<ILanguageManager, LanguageManager>();
 
             services.Configure<PanelAppSettings>(configuration.GetSection("PanelAppSetting"));
             services.Configure<UploadAddresses>(configuration.GetSection("UploadAddresses"));
@@ -58,8 +61,6 @@ namespace Infrastructure
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-
-            services.AddHttpClient();
             services.AddMemoryCache();
 
             services.AddScoped<ICategoryQueryProvider, CategoryQueryProvider>();

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Pack.FileUpload.Interfaces;
+using Component.FileUpload.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
 using Admin.Models;

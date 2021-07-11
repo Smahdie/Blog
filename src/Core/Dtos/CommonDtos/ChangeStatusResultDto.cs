@@ -20,7 +20,7 @@
 
         public static ChangeStatusResultDto UnknownError(string id = "")
         {
-            return new ChangeStatusResultDto { Id = id, Success = false, Message = "خطایی در حذف پیام اتفاق افتاده است. لطفا دوباره تلاش کنید." };
+            return new ChangeStatusResultDto { Id = id, Success = false, Message = "خطایی اتفاق افتاده است. لطفا دوباره تلاش کنید." };
         }
 
         public static ChangeStatusResultDto Successful(string id, string badge, string text)
