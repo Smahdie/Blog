@@ -53,7 +53,7 @@ namespace Infrastructure
         {
             var hasher = new PasswordHasher<Manager>();
             builder.Entity<Manager>().HasData(
-                new IdentityUser
+                new Manager
                 {
                     Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                     UserName = "Email@email.com",
@@ -62,15 +62,47 @@ namespace Infrastructure
                     NormalizedEmail = "email@email.com",
                     EmailConfirmed = true,
                     LockoutEnabled = false,
-                    PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
+                    PasswordHash = hasher.HashPassword(null, "Pa$$w0rd"),
+                    CreatedOn = DateTime.Now
                 }
             );
 
             builder.Entity<Language>().HasData(new Language {
+                Id= 1,
                 Code = "fa",
                 Name = "فارسی",
                 IsActive = true,
                 IsDefault = true,
+                CreatedOn = DateTime.Now
+            });
+
+
+            builder.Entity<Menu>().HasData(new Menu
+            {
+                Id = 1,
+                Keyword = "header",
+                Title = "هدر",
+                Language = "fa",                
+                CreatedOn = DateTime.Now
+            }, new Menu {
+                Id = 2,
+                Keyword = "useful_link",
+                Title = "لینک های مفید	",
+                Language = "fa",
+                CreatedOn = DateTime.Now
+            }, new Menu
+            {
+                Id = 3,
+                Keyword = "our_services",
+                Title = "خدمات ما",
+                Language = "fa",
+                CreatedOn = DateTime.Now
+            }, new Menu
+            {
+                Id = 4,
+                Keyword = "featured",
+                Title = "زیر اسلایدر	",
+                Language = "fa",
                 CreatedOn = DateTime.Now
             });
         }

@@ -104,38 +104,7 @@ namespace WebApp
 
             services.AddImageResizeServices();
 
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy(AllowSpecificOrigins,
-            //        builder => builder.WithOrigins(Configuration.GetSection("AllowedOrigins").Get<string[]>())
-            //                          .AllowAnyHeader()
-            //                          .AllowAnyMethod()
-            //                          .AllowCredentials());
-            //});
-
-            //services.Configure<FormOptions>(x =>
-            //{
-            //    x.ValueLengthLimit = int.MaxValue;
-            //    x.MultipartBodyLengthLimit = int.MaxValue;
-            //    x.MultipartHeadersLengthLimit = int.MaxValue;
-            //});
-
             services.AddFileUploadServices();
-
-            //if (!environment.IsDevelopment())
-            //{
-            //    services.AddAuthentication(options =>
-            //    {
-            //        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            //    })
-            //    .AddCookie(options =>
-            //    {
-            //        if (!environment.IsDevelopment())
-            //        {
-            //            configuration.GetSection("CookieAuthentication").Bind(options);
-            //        }
-            //    });
-            //}
         }
     }
 }
