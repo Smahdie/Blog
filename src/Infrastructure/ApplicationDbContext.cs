@@ -4,6 +4,7 @@ using Infrastructure.Data.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Infrastructure
 {
@@ -32,7 +33,7 @@ namespace Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            CreateDefaultAdmin(builder);
+            CreateDefaultData(builder);
 
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new CategoryTranslationConfiguration());
@@ -48,7 +49,7 @@ namespace Infrastructure
             builder.ApplyConfiguration(new TagConfiguration());
         }
 
-        private static void CreateDefaultAdmin(ModelBuilder builder)
+        private static void CreateDefaultData(ModelBuilder builder)
         {
             var hasher = new PasswordHasher<Manager>();
             builder.Entity<Manager>().HasData(
@@ -64,6 +65,14 @@ namespace Infrastructure
                     PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
                 }
             );
+
+            builder.Entity<Language>().HasData(new Language {
+                Code = "fa",
+                Name = "فارسی",
+                IsActive = true,
+                IsDefault = true,
+                CreatedOn = DateTime.Now
+            });
         }
     }
 }
