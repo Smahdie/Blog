@@ -24,8 +24,8 @@ namespace Infrastructure.Services.CategoryProviders
                 .Select(c => new CategoryListItemDto 
                 { 
                     Id = c.Id,
-                    Name = c.Translations.First(t=>t.IsDefault).Name,
-                    Slug = c.Translations.First(t => t.IsDefault).Name.GetSlug(true)
+                    Name = c.Translations.First(t=> t.Language == "fa").Name,
+                    Slug = c.Translations.First(t => t.Language == "fa").Name.GetSlug(true)
                 })
                 .ToListAsync();
         }
@@ -37,8 +37,8 @@ namespace Infrastructure.Services.CategoryProviders
                .Select(c => new CategoryListItemDto
                {
                    Id = c.Id,
-                   Name = c.Translations.First(t => t.IsDefault).Name,
-                   Slug = c.Translations.First(t => t.IsDefault).Name.GetSlug(true)
+                   Name = c.Translations.First(t => t.Language == "fa").Name,
+                   Slug = c.Translations.First(t => t.Language == "fa").Name.GetSlug(true)
                })
                .FirstOrDefaultAsync();
         }

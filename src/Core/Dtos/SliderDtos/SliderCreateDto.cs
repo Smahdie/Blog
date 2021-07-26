@@ -26,5 +26,9 @@ namespace Core.Dtos.SliderDtos
 
         [Display(Name = "متن لینک")]
         public string LinkText { get; set; }
+
+        [Display(Name = "زبان")]
+        [Required(ErrorMessage = "{0} را وارد کنید.")]
+        public string Language { get; set; }
     }
 }

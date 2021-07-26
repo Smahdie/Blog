@@ -50,5 +50,11 @@ namespace Admin.Pages.Languages
             var result = await _languageManager.ChangeActiveAsync(id);
             return new JsonResult(result);
         }
+
+        public async Task<JsonResult> OnGetListAsync()
+        {
+            var result = await _languageManager.GetSelectListAsync();
+            return new JsonResult(result);
+        }
     }
 }

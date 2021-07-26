@@ -13,6 +13,12 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/panel_assets/js/Pages/Categories/create.min.js",
+    "inputFiles": [
+      "wwwroot/panel_assets/js/Pages/Categories/create.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/panel_build/layout/first.min.js",
     "inputFiles": [
       "wwwroot/libs/jquery/jquery.min.js",

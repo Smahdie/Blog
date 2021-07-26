@@ -154,8 +154,8 @@ namespace Infrastructure.Services.ContentProviders
                                   .Select(cat => new CategoryListItemDto
                                   {
                                       Id = cat.CategoryId,
-                                      Name = cat.Category.Translations.First(t => t.IsDefault).Name,
-                                      Slug = cat.Category.Translations.First(t => t.IsDefault).Name.GetSlug(true)
+                                      Name = cat.Category.Translations.First(t => t.Language == "fa").Name,
+                                      Slug = cat.Category.Translations.First(t => t.Language == "fa").Name.GetSlug(true)
                                   })
                                   .ToList()
                 })

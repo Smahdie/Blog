@@ -52,7 +52,7 @@
                                         </select>
                                     </th>
                                     <th>
-                                        <label>@Html.DisplayNameFor(m => headerModel.PageId)</label>                                        
+                                        <label>@Html.DisplayNameFor(m => headerModel.PageId)</label>
                                         <select id="PageId"
                                                 data-url="?handler=PageList"
                                                 class="form-control select2 ajax-load"
@@ -84,6 +84,18 @@
                             <input asp-for="Input.Keyword" class="form-control" />
                             <span asp-validation-for="Input.Keyword" class="help-block"></span>
                         </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Language"></label>
+                            <select asp-for="Input.Language"
+                                    data-url="/admin/Languages?handler=List"
+                                    class="form-control select2 ajax-load"
+                                    style="width: 100%;">
+                                <option value="">انتخاب کنید</option>
+                            </select>
+                            <span asp-validation-for="Input.Language" class="help-block"></span>
+                        </div>
+
                     </div>
 
                     <div class="box-footer text-left">

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Core.Dtos.MenuDtos
 {
@@ -15,5 +14,9 @@ namespace Core.Dtos.MenuDtos
 
         [Display(Name = "اجزای منو")]
         public string MenuMembers { get; set; }
+
+        [Display(Name = "زبان")]
+        [Required(ErrorMessage = "{0} را وارد کنید.")]
+        public string Language { get; set; }
     }
 }

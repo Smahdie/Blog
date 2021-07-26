@@ -26,10 +26,12 @@ namespace Admin.Pages.Categories
                 var errors = ModelState.Values.SelectMany(v => v.Errors).Select(m => m.ErrorMessage).ToList();
                 return new JsonResult(CommandResultDto.InvalidModelState(errors));
             }
+            var result = await _categoryManager.CreateAsync(Input);
+            if (result.Success)
+            {
+                result.Url = Url.Page("Index");
+            }
 
-            await _categoryManager.CreateAsync(Input);
-            var result = CommandResultDto.Successful();
-            result.Url = Url.Page("Index");
             return new JsonResult(result);
         }
 

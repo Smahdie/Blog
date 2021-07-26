@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.Dtos.CategoryDtos
 {
@@ -15,8 +16,10 @@ namespace Core.Dtos.CategoryDtos
         [Display(Name = "فعال")]
         public bool IsActive { get; set; }
 
-        [Display(Name = "نام")]
-        [Required(ErrorMessage = "{0} را وارد کنید")]
-        public string Name { get; set; }
+        public IEnumerable<CategoryTranslationDto> Translations { get; set; }
+
+        public string Names { get; set; }
+
+
     }
 }

@@ -153,13 +153,12 @@ namespace Infrastructure.Services.ContactInfoProviders
         
         public async Task CreateAsync(ContactInfoCreateDto dto)
         {
-            var lang = (await _dbContext.Languages.FirstAsync(l => l.IsDefault)).Code;
             var contactInfo = new ContactInfo
             {
                 Value = dto.Value,
                 IsActive = dto.IsActive,
                 ContactType = dto.ContactType,
-                Language = lang,
+                Language = dto.Language,
                 CreatedOn = DateTime.Now
             };
 

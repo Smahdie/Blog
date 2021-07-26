@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Services.CategoryProviders
@@ -53,8 +54,8 @@ namespace Infrastructure.Services.CategoryProviders
             {
                 Id = category.Id,
                 IsActive = category.IsActive,
-                Name = category.Translations.First(t=>t.IsDefault).Name,
-                ParentName = category.ParentId.HasValue? category.Parent.Translations.First(t => t.IsDefault).Name : "---",
+                Name = category.Translations.First(t=> t.Language == "fa").Name,
+                ParentName = category.ParentId.HasValue? category.Parent.Translations.First(t => t.Language == "fa").Name : "---",
                 CreatedOn = PersianDateHelper.ConvertToLocalDateTime(category.CreatedOn)
             }).ToListAsync();
 
@@ -68,8 +69,8 @@ namespace Infrastructure.Services.CategoryProviders
                 .OrderByDescending(c => c.Id)
                 .Select(c => new Select2ItemDto 
                 { 
-                    Id = c.Id,
-                    Text = c.Translations.First(t => t.IsDefault).Name
+                    Id = c.Id.ToString(),
+                    Text = c.Translations.First(t=>t.Language == "fa").Name
                 })
                 .ToListAsync();
         }
@@ -82,7 +83,7 @@ namespace Infrastructure.Services.CategoryProviders
                .Select(c => new JsTreeNode
                {
                    Id = c.Id.ToString(),
-                   Text = c.Translations.First(t => t.IsDefault).Name,
+                   Text = c.Translations.First(t => t.Language == "fa").Name,
                    Parent = c.ParentId.HasValue ? c.ParentId.ToString() : "#"
                })
                .ToListAsync();
@@ -101,8 +102,8 @@ namespace Infrastructure.Services.CategoryProviders
                 Id = category.Id,
                 IsActive = category.IsActive,
                 ParentId = category.ParentId,
-                ParentName = (category.ParentId.HasValue? category.Parent.Translations.First(t => t.IsDefault).Name : null),
-                Name = category.Translations.First(t => t.IsDefault).Name
+                ParentName = (category.ParentId.HasValue ? category.Parent.Translations.First(t => t.Language == "fa").Name : null),
+                Translations = category.Translations.Select(t => new CategoryTranslationDto { Language = t.Language, Name = t.Name })
             };
         }
        
@@ -176,25 +177,35 @@ namespace Infrastructure.Services.CategoryProviders
             }
         }
        
-        public async Task CreateAsync(CategoryCreateDto dto)
+        public async Task<CommandResultDto> CreateAsync(CategoryCreateDto dto)
         {
-            var lang = (await _dbContext.Languages.FirstAsync(l => l.IsDefault)).Code;
+            var translations = JsonSerializer.Deserialize<List<CategoryTranslation>>(dto.Names, options: new JsonSerializerOptions { PropertyNameCaseInsensitive = true }); 
+            if(translations.Any(t=> string.IsNullOrWhiteSpace(t.Name)))
+            {
+                return CommandResultDto.InvalidModelState(new List<string> { "برای همه زبانها نام مشخص کنید." });
+            }
+
             var category = new Category
             {
                 ParentId = dto.ParentId,
                 IsActive = dto.IsActive,
                 CreatedOn = DateTime.Now,
-                Translations = new List<CategoryTranslation>
-                {
-                    new CategoryTranslation{Language = lang, Name = dto.Name,IsDefault = true}
-                }
+                Translations = translations
             };
             _dbContext.Categories.Add(category);
             await _dbContext.SaveChangesAsync();
+
+            return CommandResultDto.Successful();
         }
-      
+
         public async Task<CommandResultDto> UpdateAsync(CategoryUpdateDto dto)
         {
+            var translations = JsonSerializer.Deserialize<List<CategoryTranslation>>(dto.Names, options: new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            if (translations.Any(t => string.IsNullOrWhiteSpace(t.Name)))
+            {
+                return CommandResultDto.InvalidModelState(new List<string> { "برای همه زبانها نام مشخص کنید." });
+            }
+
             var category = await _dbContext.Categories
                  .AsNoTracking()
                  .FirstOrDefaultAsync(c => c.Id == dto.Id && !c.Deleted);
@@ -207,12 +218,15 @@ namespace Infrastructure.Services.CategoryProviders
             category.IsActive = dto.IsActive;
             category.ParentId = dto.ParentId;
             category.UpdatedOn = DateTime.Now;
-
-            var lang = _dbContext.CategoryTranslations.First(t=> t.CategoryId == dto.Id && t.IsDefault);
-            lang.Name = dto.Name;
-
             _dbContext.Update(category);
-            _dbContext.Update(lang);
+
+            var prevTranslations = _dbContext.CategoryTranslations.Where(t => t.CategoryId == category.Id);
+            _dbContext.CategoryTranslations.RemoveRange(prevTranslations);
+
+
+            translations = translations.Select(t => { t.CategoryId = category.Id; return t; }).ToList();
+            await _dbContext.CategoryTranslations.AddRangeAsync(translations);
+
             await _dbContext.SaveChangesAsync();
 
             return CommandResultDto.Successful();

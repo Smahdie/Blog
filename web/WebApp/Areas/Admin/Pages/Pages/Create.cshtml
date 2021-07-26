@@ -20,6 +20,18 @@
                       data-ajax-success="ajaxOnSuccess">
 
                     <div class="box-body">
+
+                        <div class="form-group">
+                            <label asp-for="Input.Language"></label>
+                            <select asp-for="Input.Language"
+                                    data-url="/admin/Languages?handler=List"
+                                    class="form-control select2 ajax-load"
+                                    style="width: 100%;">
+                                <option value="">انتخاب کنید</option>
+                            </select>
+                            <span asp-validation-for="Input.Language" class="help-block"></span>
+                        </div>
+
                         <div class="form-group">
                             <label asp-for="Input.Keyword"></label>
                             <input asp-for="Input.Keyword" class="form-control" />
@@ -33,8 +45,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="Input.Summary"></label>                            
-                            <textarea asp-for="Input.Summary" class="form-control" ></textarea>
+                            <label asp-for="Input.Summary"></label>
+                            <textarea asp-for="Input.Summary" class="form-control"></textarea>
                             <span asp-validation-for="Input.Summary" class="help-block"></span>
                         </div>
 

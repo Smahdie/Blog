@@ -218,7 +218,7 @@ $('#delete-row-button').click(function () {
     var data = {
         id : $('#delete-id').val()    
     };
-    AjaxSubmit(Delete, data, removeRowHtml);
+    AjaxSubmit('Delete', data, removeRowHtml);
 });
 
 function removeRowHtml(e, handler) {

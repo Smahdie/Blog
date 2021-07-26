@@ -17,5 +17,8 @@ namespace Core.Dtos.ContactInfoDtos
         [Display(Name = "نوع")]
         [Search(SearchFieldType.Enum)]
         public ContactType ContactType { get; set; }
+
+        [Display(Name = "زبان")]
+        public string Language { get; set; }
     }
 }

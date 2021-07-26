@@ -18,19 +18,26 @@
                 <form asp-antiforgery="true"
                       data-ajax="true"
                       data-ajax-method="POST"
-                      data-ajax-success="ajaxOnSuccess">
+                      data-ajax-success="ajaxOnSuccess"
+                      onsubmit="return save()">
+
+                    <input type="hidden" asp-for="Input.Names" />
 
                     <div class="box-body">
-                        <div class="form-group">
-                            <label asp-for="Input.Name"></label>
-                            <input asp-for="Input.Name" class="form-control" />
-                            <span asp-validation-for="Input.Name" class="help-block"></span>
-                        </div>
+                        <table class="table menu">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>زبان</th>
+                                    <th>نام</th>
+                                </tr>
+                            </thead>
+                            <tbody id="member-container" class="text-center">
+                            </tbody>
+                        </table>
 
                         <div class="form-group">
                             <label asp-for="Input.ParentId"></label>
-                            <select 
-                                    asp-for="Input.ParentId" 
+                            <select asp-for="Input.ParentId"
                                     data-url="?handler=List"
                                     class="form-control select2 ajax-load"
                                     style="width: 100%;">
@@ -44,10 +51,11 @@
                                 <label class="custom-control-label" asp-for="Input.IsActive"></label>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="box-footer text-left">
-                        <button type="submit" class="btn btn-primary">تایید</button>
+                        <button id="btn-submit" type="submit" class="btn btn-primary">تایید</button>
                         <a asp-page="Index" class="btn btn-default">بازگشت</a>
                     </div>
                 </form>
@@ -58,7 +66,16 @@
 
 @section Scripts{
     <script src="~/libs/select2/js/select2.min.js"></script>
- }
-@section Styles{ 
+    <script src="~/libs/handlebars.js/handlebars.min.js"></script>
+    <script src="~/panel_assets/js/pages/categories/create.min.js"></script>
+
+    <script id="entry-template" type="text/x-handlebars-template">
+        <tr data-lang="{{id}}">
+            <td>{{text}}</td>
+            <td><input type="text" name="Title" class="form-control" /></td>
+        </tr>
+    </script>
+}
+@section Styles{
     <link href="~/libs/select2/css/select2.min.css" rel="stylesheet" />
 }

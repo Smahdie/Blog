@@ -73,7 +73,7 @@ namespace Infrastructure.Services.TagProviders
                 .Take(takePlusOne)
                 .Select(t => new Select2ItemDto 
                 {
-                    Id = t.Id,
+                    Id = t.Id.ToString(),
                     Text = t.Name
                 })
                 .ToListAsync();

@@ -11,8 +11,6 @@ namespace Core.Dtos.CategoryDtos
         public bool IsActive { get; set; }
 
         [Display(Name = "نام")]
-        [Required(ErrorMessage = "{0} را وارد کنید")]
-        public string Name { get; set; }
-
+        public string Names { get; set; }
     }
 }

@@ -32,9 +32,11 @@ namespace Admin.Pages.Categories
                 return new JsonResult(CommandResultDto.InvalidModelState(errors));
             }
 
-            await _categoryManager.UpdateAsync(Input);
-            var result = CommandResultDto.Successful();
-            result.Url = Url.Page("Index");
+            var result = await _categoryManager.UpdateAsync(Input);
+            if (result.Success)
+            {
+                result.Url = Url.Page("Index");
+            }
             return new JsonResult(result);
         }
 

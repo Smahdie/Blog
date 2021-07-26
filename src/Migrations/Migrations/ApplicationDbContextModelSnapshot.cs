@@ -61,9 +61,6 @@ namespace Migrations.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Language")
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
@@ -222,6 +219,17 @@ namespace Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Languages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = "fa",
+                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(6565),
+                            IsActive = true,
+                            IsDefault = true,
+                            Name = "فارسی"
+                        });
                 });
 
             modelBuilder.Entity("Core.Models.Manager.Manager", b =>
@@ -302,6 +310,26 @@ namespace Migrations.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7157688d-7f31-4927-9d02-c14fdec4494e",
+                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 496, DateTimeKind.Local).AddTicks(6025),
+                            Deleted = false,
+                            Email = "Email@email.com",
+                            EmailConfirmed = true,
+                            Gender = (byte)0,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "email@email.com",
+                            NormalizedUserName = "email@email.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF2y3seLgzGZ6gh/rhff8XHkLZPKtINEbP3OEe2x3bxo0qsR45o/lQnLAwHvw/P2AQ==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "Email@email.com"
+                        });
                 });
 
             modelBuilder.Entity("Core.Models.Manager.ManagerClaim", b =>
@@ -511,6 +539,40 @@ namespace Migrations.Migrations
                         .HasFilter("[Keyword] IS NOT NULL AND [Language] IS NOT NULL");
 
                     b.ToTable("Menus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8430),
+                            Keyword = "header",
+                            Language = "fa",
+                            Title = "هدر"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8739),
+                            Keyword = "useful_link",
+                            Language = "fa",
+                            Title = "لینک های مفید	"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8750),
+                            Keyword = "our_services",
+                            Language = "fa",
+                            Title = "خدمات ما"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8754),
+                            Keyword = "featured",
+                            Language = "fa",
+                            Title = "زیر اسلایدر	"
+                        });
                 });
 
             modelBuilder.Entity("Core.Models.MenuMember", b =>

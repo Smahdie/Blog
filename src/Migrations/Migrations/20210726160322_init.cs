@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Migrations.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -131,8 +131,10 @@ namespace Migrations.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Code = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -389,8 +391,7 @@ namespace Migrations.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -485,6 +486,27 @@ namespace Migrations.Migrations
                         principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedOn", "Deleted", "DeletedOn", "Email", "EmailConfirmed", "Gender", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedOn", "UserName" },
+                values: new object[] { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "7157688d-7f31-4927-9d02-c14fdec4494e", new DateTime(2021, 7, 26, 20, 33, 21, 496, DateTimeKind.Local).AddTicks(6025), false, null, "Email@email.com", true, (byte)0, false, null, "email@email.com", "email@email.com", "AQAAAAEAACcQAAAAEF2y3seLgzGZ6gh/rhff8XHkLZPKtINEbP3OEe2x3bxo0qsR45o/lQnLAwHvw/P2AQ==", null, false, null, false, null, "Email@email.com" });
+
+            migrationBuilder.InsertData(
+                table: "Languages",
+                columns: new[] { "Id", "Code", "CreatedOn", "IsActive", "IsDefault", "Name", "UpdatedOn" },
+                values: new object[] { 1, "fa", new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(6565), true, true, "فارسی", null });
+
+            migrationBuilder.InsertData(
+                table: "Menus",
+                columns: new[] { "Id", "CreatedOn", "Keyword", "Language", "Title", "UpdatedOn" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8430), "header", "fa", "هدر", null },
+                    { 2, new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8739), "useful_link", "fa", "لینک های مفید	", null },
+                    { 3, new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8750), "our_services", "fa", "خدمات ما", null },
+                    { 4, new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8754), "featured", "fa", "زیر اسلایدر	", null }
                 });
 
             migrationBuilder.CreateIndex(

@@ -19,6 +19,10 @@ namespace Core.Dtos.PageDtos
         [Required(ErrorMessage = "{0} را وارد کنید")]
         public string Body { get; set; }
 
+        [Display(Name = "زبان")]
+        [Required(ErrorMessage = "{0} را وارد کنید")]
+        public string Language { get; set; }
+
         [Display(Name = "فعال")]
         public bool IsActive { get; set; }
     }

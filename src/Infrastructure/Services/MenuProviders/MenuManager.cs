@@ -96,7 +96,7 @@ namespace Infrastructure.Services.MenuProviders
                     Rank = item.Rank,
                     TargetType = item.TargetType,
                     CategoryId = item.CategoryId,
-                    CategoryName = item.CategoryId.HasValue ? item.Category.Translations.First(t => t.IsDefault).Name : null,
+                    CategoryName = item.CategoryId.HasValue ? item.Category.Translations.First(t => t.Language == "fa").Name : null,
                     PageId = item.PageId,
                     PageTitle = item.PageId.HasValue ? item.Page.Title : null
 
@@ -106,12 +106,11 @@ namespace Infrastructure.Services.MenuProviders
 
         public async Task<CommandResultDto> CreateAsync(MenuCreateDto dto)
         {
-            var lang = (await _dbContext.Languages.FirstAsync(l => l.IsDefault)).Code;
             var menu = new Menu
             {
                 Title = dto.Title,
                 Keyword = dto.Keyword,
-                Language = lang,
+                Language = dto.Language,
                 CreatedOn = DateTime.Now
             };
 

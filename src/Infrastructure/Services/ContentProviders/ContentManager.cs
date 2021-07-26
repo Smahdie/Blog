@@ -108,7 +108,7 @@ namespace Infrastructure.Services.ContentProviders
                 ImagePath = content.ImagePath,
                 IsActive = content.IsActive,
                 SelectedCategories = content.Categories.Select(c=>c.CategoryId).ToList(),
-                SelectedTags = content.Tags.Select(t=> new Select2ItemDto { Id = t.TagId, Text = t.Tag.Name }).ToList()
+                SelectedTags = content.Tags.Select(t=> new Select2ItemDto { Id = t.TagId.ToString(), Text = t.Tag.Name }).ToList()
             };
         }
 
@@ -179,7 +179,6 @@ namespace Infrastructure.Services.ContentProviders
         
         public async Task CreateAsync(ContentCreateDto dto)
         {
-            var lang = (await _dbContext.Languages.FirstAsync(l => l.IsDefault)).Code;
             var contentCats = GetContentCategories(dto.Categories);
 
             var content = new Content
@@ -189,7 +188,7 @@ namespace Infrastructure.Services.ContentProviders
                 Body = dto.Body,
                 ImagePath = dto.ImagePath,
                 IsActive = dto.IsActive,
-                Language = lang,
+                Language = dto.Language,
                 CreatedOn = DateTime.Now
             };
 
@@ -221,7 +220,6 @@ namespace Infrastructure.Services.ContentProviders
             {
                 _logger.LogError(ex,"Error occured while creating a new content");
             }
-
         }
 
         public async Task<CommandResultDto> UpdateAsync(ContentUpdateDto dto)

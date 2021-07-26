@@ -72,13 +72,13 @@ namespace Infrastructure.Services.MenuProviders
                         Category = (!member.CategoryId.HasValue || member.Category.Deleted || !member.Category.IsActive ? null : new CategoryListItemDto
                         {
                             Id = member.Category.Id,
-                            Name = member.Category.Translations.First(t => t.IsDefault).Name,
-                            Slug = member.Category.Translations.First(t => t.IsDefault).Name.GetSlug(true),
+                            Name = member.Category.Translations.First(t => t.Language == "fa").Name,
+                            Slug = member.Category.Translations.First(t => t.Language == "fa").Name.GetSlug(true),
                             Children = member.Category.Children.Where(child => !child.Deleted && child.IsActive).Select(child => new CategoryListItemDto
                             {
                                 Id = child.Id,
-                                Name = child.Translations.First(t => t.IsDefault).Name,
-                                Slug = child.Translations.First(t => t.IsDefault).Name.GetSlug(true)
+                                Name = child.Translations.First(t => t.Language == "fa").Name,
+                                Slug = child.Translations.First(t => t.Language == "fa").Name.GetSlug(true)
                             }).ToList()
                         })
 

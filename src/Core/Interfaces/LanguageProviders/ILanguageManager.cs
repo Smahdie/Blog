@@ -8,6 +8,7 @@ namespace Core.Interfaces.LanguageProviders
     public interface ILanguageManager
     {
         Task<(List<LanguageGridDto> Items, int TotalCount)> GetAllAsync(LanguageGridDto dto);
+        Task<List<Select2ItemDto>> GetSelectListAsync();
         Task<LanguageUpdateDto> GetAsync(int id);
         Task<ChangeStatusResultDto> ChangeDefaultAsync(int id);
         Task<ChangeStatusResultDto> ChangeActiveAsync(int id);

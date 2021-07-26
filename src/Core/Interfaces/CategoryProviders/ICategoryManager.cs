@@ -13,7 +13,7 @@ namespace Core.Interfaces.CategoryProviders
         Task<CategoryUpdateDto> GetAsync(int id);
         Task<DeleteResultDto> DeleteAsync(int id);
         Task<ChangeStatusResultDto> ChangeStatusAsync(int id);
-        Task CreateAsync(CategoryCreateDto dto);
+        Task<CommandResultDto> CreateAsync(CategoryCreateDto dto);
         Task<CommandResultDto> UpdateAsync(CategoryUpdateDto dto);
     }
 }

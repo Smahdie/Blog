@@ -159,8 +159,6 @@ namespace Infrastructure.Services.SliderProviders
         
         public async Task CreateAsync(SliderCreateDto dto)
         {
-            var lang = (await _dbContext.Languages.FirstAsync(l => l.IsDefault)).Code;
-
             var slider = new Slider
             {
                 Title = dto.Title,
@@ -170,7 +168,7 @@ namespace Infrastructure.Services.SliderProviders
                 Link = dto.Link,
                 LinkText = dto.LinkText,
                 IsActive = dto.IsActive,
-                Language = lang,
+                Language = dto.Language,
                 CreatedOn = DateTime.Now
             };
             _dbContext.Sliders.Add(slider);

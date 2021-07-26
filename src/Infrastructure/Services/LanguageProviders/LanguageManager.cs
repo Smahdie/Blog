@@ -52,6 +52,21 @@ namespace Infrastructure.Services.LanguageProviders
             return (items, totalCount);
         }
 
+
+        public Task<List<Select2ItemDto>> GetSelectListAsync()
+        {
+            return _dbContext.Languages
+                .Where(c => c.IsActive)
+                .OrderByDescending(c => c.IsDefault)
+                .ThenBy(c => c.Id)
+                .Select(c => new Select2ItemDto
+                {
+                    Id = c.Code.ToString(),
+                    Text = c.Name
+                })
+                .ToListAsync();
+        }
+
         public async Task<LanguageUpdateDto> GetAsync(int id)
         {
             var language = await _dbContext.Languages.FirstOrDefaultAsync(c => c.Id == id);
@@ -127,8 +142,6 @@ namespace Infrastructure.Services.LanguageProviders
                 return ChangeStatusResultDto.UnknownError(id.ToString());
             }
         }
-
-
 
         public async Task<ChangeStatusResultDto> ChangeActiveAsync(int id)
         {

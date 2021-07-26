@@ -93,7 +93,7 @@ namespace Infrastructure.Services.PageProviders
                 .OrderByDescending(c => c.Id)
                 .Select(c => new Select2ItemDto
                 {
-                    Id = c.Id,
+                    Id = c.Id.ToString(),
                     Text = c.Title
                 })
                 .ToListAsync();
@@ -171,7 +171,6 @@ namespace Infrastructure.Services.PageProviders
 
         public async Task CreateAsync(PageCreateDto dto)
         {
-            var lang = (await _dbContext.Languages.FirstAsync(l => l.IsDefault)).Code;
             var page = new Page
             {
                 Title = dto.Title,
@@ -180,7 +179,7 @@ namespace Infrastructure.Services.PageProviders
                 Body = dto.Body,
                 IsActive = dto.IsActive,
                 CreatedOn = DateTime.Now,
-                Language = lang
+                Language = dto.Language
             };
             _dbContext.Pages.Add(page);
             await _dbContext.SaveChangesAsync();
