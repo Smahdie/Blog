@@ -15,6 +15,10 @@ namespace Core.Dtos.ContentDtos
         [Search]
         public string Title { get; set; }
 
+        [Display(Name = "زبان")]
+        [Search]
+        public string Language { get; set; }
+
         [Display(Name = "فعال")]
         [Search(SearchFieldType.Boolean)]
         [Boolean]

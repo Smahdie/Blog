@@ -35,6 +35,8 @@ namespace Core.Dtos.ContentDtos
         [Display(Name = "فعال")]
         public bool IsActive { get; set; }
 
+        public string Language { get; set; }
+
         public List<int> SelectedCategories { get; set; }
 
         public List<Select2ItemDto> SelectedTags { get; set; }

@@ -11,18 +11,18 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services.MessageProviders
 {
-    public class MessageCommandProvider : IMessageCommandProvider
+    public class MessageCommand : IMessageCommand
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IEmailManager _emailManager;
         private readonly MailManagerSettings _mailManagerSettings;
-        private readonly ILogger<MessageCommandProvider> _logger;
+        private readonly ILogger<MessageCommand> _logger;
 
-        public MessageCommandProvider(
+        public MessageCommand(
             ApplicationDbContext dbContext,
             IEmailManager emailManager,
             IOptions<MailManagerSettings> mailManagerSettings,
-            ILogger<MessageCommandProvider> logger)
+            ILogger<MessageCommand> logger)
         {
             _dbContext = dbContext;
             _emailManager = emailManager;

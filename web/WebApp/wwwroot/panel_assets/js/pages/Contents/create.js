@@ -8,12 +8,18 @@
             data: function (params) {
                 var query = {
                     search: params.term,
+                    language: $('#content_lang').val(),
                     page: params.page || 1
                 }
                 return query;
             }
         },
         minimumInputLength: 2
+    });
+
+    $('#Input_Language').change(function () {
+        var lang = $(this).val();
+        $('#content_lang').val(lang);
     });
 
     if (typeof selectedTags != "undefined") {

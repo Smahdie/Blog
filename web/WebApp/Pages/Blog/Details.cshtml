@@ -1,9 +1,12 @@
 ﻿@page "{id}/{slug}"
 @model WebApp.Pages.Blog.DetailsModel
 
+@inject SharedLocalizationService localizer
+
 @{
+    var lang = HttpContext.CurrentLanguage();
     ViewData["BreadCrumbTitle"] = ViewData["PageHeading"] = Model.Data.Title;
-    ViewData["BreadCrumb"] = new List<BreadCrumbDto> { new BreadCrumbDto { Text = "بلاگ", Href = Url.Page("List", "All") } };
+    ViewData["BreadCrumb"] = new List<BreadCrumbDto> { new BreadCrumbDto { Text = localizer.Get("Blog"), Href = Url.Page("List", "All", new { culture = lang }) } };
 }
 
 <main id="main">
@@ -30,7 +33,7 @@
                         <div class="entry-meta">
                             <ul>
                                 <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i><time datetime="@Model.Data.CreatedOn">@Model.Data.PersianCreatedOn</time></li>
-                                <li class="d-flex align-items-center"><i class="icofont-eye"></i> @Model.Data.ViewCount بازدید</li>
+                                <li class="d-flex align-items-center"><i class="icofont-eye"></i> @Model.Data.ViewCount @localizer.Get("Views")</li>
                             </ul>
                         </div>
 
@@ -45,7 +48,7 @@
                                     @foreach (var item in Model.Data.Categories)
                                     {
                                         <li>
-                                            <a asp-page="list" asp-route-handler="Category" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Name</a>
+                                            <a asp-page="list" asp-route-culture="@lang" asp-route-handler="Category" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Name</a>
                                         </li>
                                     }
                                 </ul>
@@ -55,7 +58,7 @@
                                     @foreach (var item in Model.Data.Tags)
                                     {
                                         <li>
-                                            <a asp-page="list" asp-route-handler="Tag" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Name</a>
+                                            <a asp-page="list" asp-route-culture="@lang" asp-route-handler="Tag" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Name</a>
                                         </li>
                                     }
                                 </ul>

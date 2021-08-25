@@ -14,6 +14,9 @@
           data-ajax="true"
           data-ajax-method="POST"
           data-ajax-success="ajaxOnSuccess">
+
+        <input type="hidden" id="content_lang"  />
+
         <div class="row mb-md-3">
             <div class="col-md-8 mb-3 mb-md-0">
                 <div class="card h-100 mb-0">
@@ -43,7 +46,7 @@
 
                                 <div class="form-group mb-0">
                                     <label asp-for="Input.ImagePath"></label>
-                                    <div class="dropzone dropzone-file-area" data-upload-address="@uploadAddresses.Value.ContentImage" >
+                                    <div class="dropzone dropzone-file-area" data-upload-address="@uploadAddresses.Value.ContentImage">
                                         <input class="address-holder" type="hidden" asp-for="Input.ImagePath" />
                                         <div class="dz-default dz-message">
                                             <h3 class="sbold">فایل را بکشید و در کادر رها کنید</h3>

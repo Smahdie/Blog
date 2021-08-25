@@ -4,22 +4,27 @@ using Core.Dtos.Settings;
 using Core.Interfaces.ContentProviders;
 using Core.Models.Enums;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
+using WebApp.Extensions;
 
 namespace WebApp.Pages.Blog
 {
     public class SearchModel : PageModel
     {
-        private readonly IContentQueryProvider _contentQueryProvider;
+        private readonly IContentQuery _contentQueryProvider;
         private readonly WebAppSettings _appSettings;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
         public SearchModel(
-            IContentQueryProvider contentQueryProvider,
-            IOptions<WebAppSettings> appSettings)
+            IContentQuery contentQueryProvider,
+            IOptions<WebAppSettings> appSettings,
+            IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _contentQueryProvider = contentQueryProvider;
             _appSettings = appSettings.Value;
+            _sharedLocalizer = sharedLocalizer;
         }
 
         public StaticPaginated<ContentListDto> Contents { get; set; }
@@ -31,15 +36,18 @@ namespace WebApp.Pages.Blog
             RequestQuery = query.Trim();
             if (query.Length < 2)
             {
-                ErrorMessage = "برای جستجو حداقل دو حرف وارد کنید.";
+                ErrorMessage = _sharedLocalizer["Search Length Limit"];
                 return;
             }
-            ViewData["Title"] = $"بلاگ - جستجو برای «{query}» - صفحه {pageNumber}";
-            var (Items, TotalCount) = await _contentQueryProvider.SearchAsync(new ContentSearchRequestDto { Type = ContentType.Article, PageIndex = pageNumber, Keyword = query });
+            ViewData["Title"] = string.Format(_sharedLocalizer["Search Title"],query, pageNumber);
+
+            var language = HttpContext.CurrentLanguage();
+
+            var (Items, TotalCount) = await _contentQueryProvider.SearchAsync(new ContentSearchRequestDto { Language = language, Type = ContentType.Article, PageIndex = pageNumber, Keyword = query });
             Contents = new StaticPaginated<ContentListDto>(Items, pageNumber, _appSettings.PageSize, TotalCount);
             if(Contents.Count == 0)
             {
-                ErrorMessage = "جستجو برای این عبارت نتیجه ای در بر نداشت.";
+                ErrorMessage = _sharedLocalizer["Search No Result"];
             }
         }
     }

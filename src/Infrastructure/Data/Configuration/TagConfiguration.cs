@@ -8,8 +8,9 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Tag> builder)
         {
-            builder.Property(a => a.Name).HasMaxLength(64);
-            builder.HasIndex(a => a.Name).IsUnique();
+            builder.Property(a => a.Name).IsRequired().HasMaxLength(64);
+            builder.Property(a => a.Language).IsRequired().HasMaxLength(8);
+            builder.HasIndex(a => new { a.Name, a.Language }).IsUnique();
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Core.Dtos.CommonDtos;
 using Core.Dtos.ContactInfoDtos;
-using Core.Dtos.MessageDtos;
 using Core.Interfaces.CaptchaProviders;
 using Core.Interfaces.ContactInfoProviders;
 using Core.Interfaces.MessageProviders;
@@ -9,18 +8,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Extensions;
+using WebApp.Models;
 
 namespace WebApp.Pages
 {
     public class ContactUsModel : PageModel
     {
-        private readonly IMessageCommandProvider _messageCommandProvider;
-        private readonly IContactInfoQueryProvider _contactInfoQueryProvider;
+        private readonly IMessageCommand _messageCommandProvider;
+        private readonly IContactInfoQuery _contactInfoQueryProvider;
         private readonly ICaptchaManager _captchaManager;
 
         public ContactUsModel(
-            IMessageCommandProvider messageCommandProvider,
-            IContactInfoQueryProvider contactInfoQueryProvider,
+            IMessageCommand messageCommandProvider,
+            IContactInfoQuery contactInfoQueryProvider,
             ICaptchaManager captchaManager)
         {
             _messageCommandProvider = messageCommandProvider;
@@ -35,7 +36,8 @@ namespace WebApp.Pages
 
         public async Task OnGetAsync()
         {
-            Contacts = await _contactInfoQueryProvider.GetAllAsync();
+            var language = HttpContext.CurrentLanguage();
+            Contacts = await _contactInfoQueryProvider.GetAllAsync(language);
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -52,7 +54,16 @@ namespace WebApp.Pages
                 return new JsonResult(captchaResult);
             }
 
-            var sendResult = await _messageCommandProvider.SendAsync(Input);
+            var dto = new Core.Dtos.MessageDtos.MessageSendDto 
+            {
+                Email = Input.Email,
+                FirstName = Input.FirstName,
+                LastName = Input.LastName,
+                PhoneNumber = Input.PhoneNumber,
+                Text = Input.Text
+            };
+
+            var sendResult = await _messageCommandProvider.SendAsync(dto);
             return new JsonResult(sendResult);
         }
     }

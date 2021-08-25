@@ -57,6 +57,8 @@ namespace WebApp
             var mvcBuilder = services.AddRazorPages()
                 .AddRazorPagesOptions(options =>
                 {
+                    options.Conventions.Add(new CustomCultureRouteRouteModelConvention());
+
                     options.Conventions.AuthorizeAreaFolder("Admin", "/");
                     options.Conventions.AllowAnonymousToPage("/Error");
                     options.Conventions.AllowAnonymousToAreaPage("Admin", "/Account/AccessDenied");
@@ -67,12 +69,16 @@ namespace WebApp
                     options.Conventions.AllowAnonymousToAreaPage("Admin", "/Account/ResetPassword");
                     options.Conventions.AllowAnonymousToAreaPage("Admin", "/Account/ResetPasswordConfirmation");
                     options.Conventions.AllowAnonymousToAreaPage("Admin", "/Account/SignedOut");
+
+                    
+
                 })
                 .AddJsonOptions(opts => {
                     var enumConverter = new JsonStringEnumConverter();
                     opts.JsonSerializerOptions.Converters.Add(enumConverter);
                 })
                 .AddRazorRuntimeCompilation()
+                .AddDataAnnotationsLocalization()
                 .SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             if (environment.IsDevelopment())

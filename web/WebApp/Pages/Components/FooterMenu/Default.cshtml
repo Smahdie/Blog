@@ -1,35 +1,41 @@
 ﻿@using Core.Dtos.MenuDtos
 @model MenuDetailsDto
 
+@inject SharedLocalizationService localizer
+
+@{
+    var lang = Context.CurrentLanguage();
+}
+
 @if (Model != null)
 {
-<div class="col-lg-3 col-md-6 footer-links">
-    <h4>@Model.Title</h4>
-    <ul>
-        @foreach (var item in Model.MenuMembers)
-        {
-            switch (item.TargetType)
+    <div class="col-lg-3 col-md-6 footer-links">
+        <h4>@Model.Title</h4>
+        <ul>            
+            @foreach (var item in Model.MenuMembers)
             {
-                case MenuMemberTargetType.Home:
-                    <li><i class="bx bx-chevron-right"></i> <a href="/">صفحه اصلی</a></li>
-                    break;                
-                case MenuMemberTargetType.ContactUs:
-                    <li><i class="bx bx-chevron-right"></i> <a asp-page="/ContactUs">تماس با ما</a></li>
-                    break;
-                case MenuMemberTargetType.Category:
-                    if (item.Category != null)
-                    {
-                        <li><i class="bx bx-chevron-right"></i> <a sp-page="/blog/list" asp-route-handler="Category" asp-route-id="@item.Category.Id" asp-route-slug="@item.Category.Slug">@item.Category.Name</a></li>
-                    }
-                    break;
-                case MenuMemberTargetType.Page:
-                    if (item.Page != null)
-                    {
-                        <li><i class="bx bx-chevron-right"></i> <a asp-page="/Pages/Details" asp-route-keyword="@item.Page.Keyword">@item.Page.Title</a></li>
-                    }
-                    break;
+                switch (item.TargetType)
+                {
+                    case MenuMemberTargetType.Home:
+                        <li><i class="bx bx-chevron-right"></i> <a href="@($"/{lang}")">@localizer.Get("Home Page")</a></li>
+                        break;
+                    case MenuMemberTargetType.ContactUs:
+                        <li><i class="bx bx-chevron-right"></i> <a asp-page="/ContactUs" asp-route-culture="@lang">@localizer.Get("Contact Us")</a></li>
+                        break;
+                    case MenuMemberTargetType.Category:
+                        if (item.Category != null)
+                        {
+                            <li><i class="bx bx-chevron-right"></i> <a asp-page="/blog/list" asp-route-culture="@lang" asp-route-handler="Category" asp-route-id="@item.Category.Id" asp-route-slug="@item.Category.Slug">@item.Category.Name</a></li>
+                        }
+                        break;
+                    case MenuMemberTargetType.Page:
+                        if (item.Page != null)
+                        {
+                            <li><i class="bx bx-chevron-right"></i> <a asp-page="/Pages/Details" asp-route-culture="@lang" asp-route-keyword="@item.Page.Keyword">@item.Page.Title</a></li>
+                        }
+                        break;
+                }
             }
-        }
-    </ul>
-</div>
+        </ul>
+    </div>
 }

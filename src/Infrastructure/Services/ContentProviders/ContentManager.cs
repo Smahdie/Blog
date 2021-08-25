@@ -78,6 +78,7 @@ namespace Infrastructure.Services.ContentProviders
                 Id = c.Id,
                 IsActive = c.IsActive,
                 Title = c.Title,
+                Language = c.Language,
                 ViewCount = c.ViewCount,
                 CreatedOn = PersianDateHelper.ConvertToLocalDateTime(c.CreatedOn),
                 UpdatedOn = (c.UpdatedOn!=null? PersianDateHelper.ConvertToLocalDateTime(c.UpdatedOn.Value) : "---")
@@ -102,6 +103,7 @@ namespace Infrastructure.Services.ContentProviders
             return new ContentUpdateDto
             {
                 Id = content.Id,
+                Language = content.Language,
                 Title = content.Title,
                 Summary = content.Summary,
                 Body = content.Body,
@@ -198,7 +200,7 @@ namespace Infrastructure.Services.ContentProviders
             try
             {
 
-                var createdTags = await _tagManager.CreateAsync(newTags);
+                var createdTags = await _tagManager.CreateAsync(newTags, dto.Language);
                 dbTags.AddRange(createdTags);
 
                 _dbContext.Contents.Add(content);
@@ -237,7 +239,7 @@ namespace Infrastructure.Services.ContentProviders
             using var transaction = _dbContext.Database.BeginTransaction();
             try
             {
-                var createdTags = await _tagManager.CreateAsync(newTags);
+                var createdTags = await _tagManager.CreateAsync(newTags, content.Language);
                 dbTags.AddRange(createdTags);
 
                 content.Title = dto.Title;

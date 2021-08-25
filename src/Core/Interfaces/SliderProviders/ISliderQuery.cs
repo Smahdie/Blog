@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces.SliderProviders
 {
-    public interface ISliderQueryProvider
+    public interface ISliderQuery
     {
-        Task<List<SliderListDto>> GetListAsync();
+        Task<List<SliderListDto>> GetListAsync(string language);
     }
 }

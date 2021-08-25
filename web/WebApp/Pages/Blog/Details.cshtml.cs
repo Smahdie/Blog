@@ -9,12 +9,12 @@ namespace WebApp.Pages.Blog
 {
     public class DetailsModel : PageModel
     {
-        private readonly IContentQueryProvider _contentQueryProvider;
-        private readonly IContentCommandProvider _contentCommandProvider;
+        private readonly IContentQuery _contentQueryProvider;
+        private readonly IContentCommand _contentCommandProvider;
 
         public DetailsModel(
-            IContentQueryProvider contentQueryProvider,
-            IContentCommandProvider contentCommandProvider)
+            IContentQuery contentQueryProvider,
+            IContentCommand contentCommandProvider)
         {
             _contentQueryProvider = contentQueryProvider;
             _contentCommandProvider = contentCommandProvider;
@@ -22,7 +22,7 @@ namespace WebApp.Pages.Blog
 
         public ContentDetailsDto Data { get; set; }
 
-        public async Task<IActionResult> OnGet(int id,string slug)        
+        public async Task<IActionResult> OnGet(int id,string slug)
         {
             var content = await _contentQueryProvider.GetDetailAsync(id, ContentType.Article);
             if(content == null)

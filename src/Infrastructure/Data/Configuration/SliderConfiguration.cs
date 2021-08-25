@@ -8,7 +8,7 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Slider> builder)
         {
-            builder.Property(a => a.Language).HasMaxLength(8);
+            builder.Property(a => a.Language).IsRequired().HasMaxLength(8);
         }
     }
 }

@@ -129,7 +129,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item"><a asp-page="/Menus/Index" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Menus/Index") ? "active" : "")"><i class="nav-icon fa fa-list"></i> <p>لیست</p></a></li>
-                        <li class="d-none"><a href="#" class="nav-link @(Html.IsMenuActive("/Admin/Menus/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>ایجاد منو</p></a></li>
+                        <li class="nav-item"><a asp-page="/Menus/Create" asp-area="Admin" class="nav-link @(Html.IsMenuActive("/Admin/Menus/Create") ? "active" : "")"><i class="nav-icon fa fa-plus"></i> <p>ایجاد منو</p></a></li>
                         <li class="d-none"><a href="#" class="nav-link @(Html.IsMenuActive("/Admin/Menus/Edit") ? "active" : "")"><i class="fa fa-circle-o"></i><p>ویرایش منو</p></a></li>
                     </ul>
                 </li>

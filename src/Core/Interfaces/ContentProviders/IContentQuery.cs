@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces.ContentProviders
 {
-    public interface IContentQueryProvider
+    public interface IContentQuery
     {
         Task<ListHasMoreDto<ContentListDto>> GetTopAsync(TopContentRequestDto dto);
 

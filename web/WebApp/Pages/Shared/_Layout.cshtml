@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@inject SharedLocalizationService localizer
+
+@{ 
+    var lang = Context.CurrentLanguage();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,7 +12,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     @{
-        var applicationName = "برند شما";
+        var applicationName = localizer.Get("Brand");
         if (ViewData["Title"] != null)
         {
             <title>@applicationName | @ViewData["Title"]</title>
@@ -25,7 +31,7 @@
     <link href="~/site_build/layout/style.min.css" rel="stylesheet">
 </head>
 
-<body class="rtl @ViewData["BodyClass"]">
+<body data-lang="@lang" class="@(lang=="fa"? "rtl":string.Empty) @ViewData["BodyClass"]">
     @await Component.InvokeAsync("TopBar")
 
     @await Component.InvokeAsync("Header")
@@ -58,7 +64,7 @@
 
         <div class="container">
             <div class="copyright">
-                &copy; تمامی حقوق این سایت متعلق به <strong><span>برند شما</span></strong> است.
+                @Html.Raw(localizer.Get("Copy Right"))
             </div>
         </div>
 

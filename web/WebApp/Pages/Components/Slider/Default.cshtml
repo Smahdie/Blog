@@ -1,6 +1,8 @@
 ﻿@using Core.Dtos.SliderDtos
 @model List<SliderListDto>
 
+@inject SharedLocalizationService localizer
+
 @if (Model.Any())
 {
     <section id="hero">
@@ -14,6 +16,7 @@
                     @for (int i = 0; i < Model.Count; i++)
                     {
                         var item = Model[i];
+
                         <div class="carousel-item @(i==0?"active":string.Empty)" style="background-image: url(@item.ImagePath)">
                             <div class="carousel-container">
                                 <div class="carousel-content">
@@ -27,7 +30,7 @@
                                     }
                                     @if (!string.IsNullOrWhiteSpace(item.Link))
                                     {
-                                        var text = string.IsNullOrWhiteSpace(item.LinkText) ? "بیشتر بخوانید" : item.LinkText;
+                                        var text = string.IsNullOrWhiteSpace(item.LinkText) ? @localizer.Get("Read More") : item.LinkText;
                                         <a href="@item.Link" class="btn-get-started animate__animated animate__fadeInUp">@text</a>
                                     }
                                 </div>
@@ -38,12 +41,12 @@
 
                 <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon icofont-rounded-left" aria-hidden="true"></span>
-                    <span class="sr-only">قبلی</span>
+                    <span class="sr-only">@localizer.Get("Prev")</span>
                 </a>
 
                 <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">
                     <span class="carousel-control-next-icon icofont-rounded-right" aria-hidden="true"></span>
-                    <span class="sr-only">بعدی</span>
+                    <span class="sr-only">@localizer.Get("Next")</span>
                 </a>
 
             </div>

@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces.ContactInfoProviders
 {
-    public interface IContactInfoQueryProvider
+    public interface IContactInfoQuery
     {
-        Task<List<ContactInfoListDto>> GetAllAsync();
+        Task<List<ContactInfoListDto>> GetAllAsync(string language);
     }
 }

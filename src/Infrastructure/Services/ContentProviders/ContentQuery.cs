@@ -16,12 +16,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services.ContentProviders
 {
-    public class ContentQueryProvider : IContentQueryProvider
+    public class ContentQuery : IContentQuery
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly WebAppSettings _appSettings;
 
-        public ContentQueryProvider(
+        public ContentQuery(
             ApplicationDbContext dbContext,
             IOptions<WebAppSettings> appSettings)
         {
@@ -32,6 +32,9 @@ namespace Infrastructure.Services.ContentProviders
         public async Task<ListHasMoreDto<ContentListDto>> GetTopAsync(TopContentRequestDto dto)
         {
             var query = Query();
+
+            query = query.Where(c => c.Language == dto.Language);
+
             if (dto.PageOrder != null)
             {
                 query = query.OrderByField(dto.PageOrderBy, dto.PageOrder.ToLower() == "asc");
@@ -66,6 +69,7 @@ namespace Infrastructure.Services.ContentProviders
         public async Task<(List<ContentListDto> Items, int TotalCount)> GetAllAsync(ContentListRequestDto dto)
         {
             var query = Query();
+            query = query.Where(c => c.Language == dto.Language);
             query = query.WhereIf(dto.TagId.HasValue, c => c.Tags.Any(t => t.TagId == dto.TagId));
             query = query.WhereIf(dto.CategoryId.HasValue, c => c.Categories.Any(t => t.CategoryId == dto.CategoryId || t.Category.ParentId == dto.CategoryId));
             query = query.WhereIf(dto.Type.HasValue, c => c.Type == dto.Type);
@@ -98,6 +102,7 @@ namespace Infrastructure.Services.ContentProviders
         {
             dto.Keyword = dto.Keyword?.Trim();
             var query = Query();
+            query = query.Where(c => c.Language == dto.Language);
             query = query.WhereIf(dto.Type.HasValue, c => c.Type == dto.Type);
             query = query.Where(c => c.Title.Contains(dto.Keyword) || c.Summary.Contains(dto.Keyword));
 

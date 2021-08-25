@@ -1,15 +1,21 @@
 ﻿@using Core.Dtos.TagDtos
 @model List<TagListDto>
 
+@inject SharedLocalizationService localizer
+
+@{
+    var lang = Context.CurrentLanguage();
+}
+
 @if (Model.Any())
 {
-    <h3 class="sidebar-title">برچسب ها</h3>
+    <h3 class="sidebar-title">@localizer.Get("Tags")</h3>
     <div class="sidebar-item tags">
         <ul>
             @foreach (var item in Model)
             {
-                
-                <li><a asp-page="/blog/list" asp-route-handler="Tag" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Name</a></li>
+
+                <li><a asp-page="/blog/list" asp-route-culture="@lang" asp-route-handler="Tag" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Name</a></li>
             }
         </ul>
     </div>

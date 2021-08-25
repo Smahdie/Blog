@@ -1,5 +1,12 @@
 ﻿@page "{handler}/Page-{pageNumber=1}/{id?}/{slug?}"
+
 @model WebApp.Pages.Blog.ListModel
+
+@inject SharedLocalizationService localizer
+
+@{
+    var lang = HttpContext.CurrentLanguage();
+}
 
 <main id="main">
     @await Html.PartialAsync("_BreadCrumbs")
@@ -10,22 +17,24 @@
             <div class="row">
 
                 <div class="col-lg-8 entries">
+
                     @foreach (var item in Model.Contents)
                     {
                         @await Html.PartialAsync("_BlogListItem", item)
                     }
 
                     <div class="blog-pagination">
+
                         @Html.Pagination(
                         Model.Contents,
-                        current => Url.Page("List", new { handler = Model.RequestHandler, pageNumber = current, id = Model.RequestId, slug = Model.RequestSlug }),
+                        current => Url.Page("List", new { culture = lang, handler = Model.RequestHandler, pageNumber = current, id = Model.RequestId, slug = Model.RequestSlug }),
                         PaginatedStyle.NumbersWithFirstPreviousNextLast,
                         new PaginatedOptions
                         {
-                            NextLabel = "بعدی",
-                            PreviousLabel = "قبلی",
-                            FirstLabel = "اولین",
-                            LastLabel = "آخرین"
+                            NextLabel = localizer.Get("Next"),
+                            PreviousLabel = localizer.Get("Prev"),
+                            FirstLabel = localizer.Get("First"),
+                            LastLabel = localizer.Get("Last")
                         }
                     )
                     </div>

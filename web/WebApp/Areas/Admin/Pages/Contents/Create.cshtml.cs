@@ -28,11 +28,11 @@ namespace Admin.Pages.Contents
         [BindProperty]
         public ContentCreateDto Input { get; set; }
 
-        public async Task<JsonResult> OnGetTagsAsync(string search, int page)
+        public async Task<JsonResult> OnGetTagsAsync(string search, string language, int page)
         {
             if (page < 1)
                 page = 1;
-            var result = await _tagManager.GetSelectListAsync(search, page);
+            var result = await _tagManager.GetSelectListAsync(search, language, page);
             return new JsonResult(result);
         }
 

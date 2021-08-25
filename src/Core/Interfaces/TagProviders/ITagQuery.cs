@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces.TagProviders
 {
-    public interface ITagQueryProvider
+    public interface ITagQuery
     {
-        Task<List<TagListDto>> GetTopTagsAsync();
+        Task<List<TagListDto>> GetTopTagsAsync(string language);
+
         Task<TagListDto> GetByIdAsync(int id);
     }
 }

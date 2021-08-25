@@ -39,6 +39,8 @@ namespace Infrastructure.Services.TagProviders
 
             query = query.WhereIf(dto.Id.HasValue, c => c.Id == dto.Id);
             query = query.WhereIf(!string.IsNullOrWhiteSpace(dto.Name), c => c.Name.Contains(dto.Name.Trim()));
+            query = query.WhereIf(!string.IsNullOrWhiteSpace(dto.Language), c => c.Language.Contains(dto.Language.Trim()));
+
             if (!string.IsNullOrWhiteSpace(dto.CreatedOn))
             {
                 var createdOnDateTime = DateTime.Parse(dto.CreatedOn);
@@ -54,24 +56,26 @@ namespace Infrastructure.Services.TagProviders
             {
                 Id = tag.Id,
                 Name = tag.Name,
+                Language = tag.Language,
                 CreatedOn = PersianDateHelper.ConvertToLocalDateTime(tag.CreatedOn)
             }).ToListAsync();
 
             return (items, totalCount);
         }
 
-        public async Task<Select2PagedResult> GetSelectListAsync(string term, int page)
+        public async Task<Select2PagedResult> GetSelectListAsync(string term, string language, int page)
         {
             var take = _appSettings.PageSize;
             var takePlusOne = take + 1;
             var skip = (page - 1) * take;
-            
+
             var tags = await _dbContext.Tags
                 .Where(t => !t.Deleted)
                 .Where(t => t.Name.Contains(term.Trim()))
+                .Where(t => t.Language == language)
                 .Skip(skip)
                 .Take(takePlusOne)
-                .Select(t => new Select2ItemDto 
+                .Select(t => new Select2ItemDto
                 {
                     Id = t.Id.ToString(),
                     Text = t.Name
@@ -85,12 +89,13 @@ namespace Infrastructure.Services.TagProviders
             return result;
         }
 
-        public async Task<List<int>> CreateAsync(IEnumerable<string> words)
+        public async Task<List<int>> CreateAsync(IEnumerable<string> words, string language)
         {
             var result = new List<int>();
             var tags = words.Select(word => new Tag 
             {
                 Name = word.Trim(),
+                Language = language,
                 CreatedOn = DateTime.Now
             });
             foreach (var tag in tags)

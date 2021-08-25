@@ -9,7 +9,7 @@ namespace Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<CategoryTranslation> builder)
         {
             builder.HasOne(a => a.Category).WithMany(a => a.Translations).HasForeignKey(a => a.CategoryId).OnDelete(DeleteBehavior.Cascade);
-            builder.Property(a => a.Language).HasMaxLength(8);
+            builder.Property(a => a.Language).IsRequired().HasMaxLength(8);
         }
     }
 }

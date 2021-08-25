@@ -14,13 +14,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services.MenuProviders
 {
-    public class MenuQueryProvider : IMenuQueryProvider
+    public class MenuQuery : IMenuQuery
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IMemoryCache _cache;
         private readonly MemoryCacheSettings _memoryCacheSettings;
 
-        public MenuQueryProvider(
+        public MenuQuery(
             ApplicationDbContext dbContext,
             IMemoryCache cache,
             IOptions<MemoryCacheSettings> memoryCacheSettings)
@@ -30,22 +30,23 @@ namespace Infrastructure.Services.MenuProviders
             _memoryCacheSettings = memoryCacheSettings.Value;
         }
 
-        public async Task<MenuDetailsDto> GetByKeywordAsync(string keyword, bool nested = false)
+        public async Task<MenuDetailsDto> GetByKeywordAsync(string keyword, string lang, bool nested = false)
         {
-            var serializedData = await _cache.GetOrCreateAsync(CacheKeys.Menu(keyword,nested), entry =>
-            {
-                entry.AbsoluteExpirationRelativeToNow = _memoryCacheSettings.MenuExpiration;
-                return GetByKeywordFromDb(keyword,nested);
-            });
+            var serializedData = await _cache.GetOrCreateAsync(CacheKeys.Menu(keyword, lang, nested), entry =>
+              {
+                  entry.AbsoluteExpirationRelativeToNow = _memoryCacheSettings.MenuExpiration;
+                  return GetByKeywordFromDb(keyword, lang, nested);
+              });
 
             var model = JsonSerializer.Deserialize<MenuDetailsDto>(serializedData);
             return model;
         }
 
-        private async Task<string> GetByKeywordFromDb(string keyword, bool nested = false)
+        private async Task<string> GetByKeywordFromDb(string keyword, string lang, bool nested = false)
         {
             var query = _dbContext.Menus
                 .Where(menu => menu.Keyword == keyword)
+                .Where(menu => menu.Language == lang)
                 .Include(menu => menu.Members).ThenInclude(member => member.Page)
                 .Include(menu => menu.Members).ThenInclude(member => member.Category).ThenInclude(cat => cat.Translations);
 
@@ -72,13 +73,13 @@ namespace Infrastructure.Services.MenuProviders
                         Category = (!member.CategoryId.HasValue || member.Category.Deleted || !member.Category.IsActive ? null : new CategoryListItemDto
                         {
                             Id = member.Category.Id,
-                            Name = member.Category.Translations.First(t => t.Language == "fa").Name,
-                            Slug = member.Category.Translations.First(t => t.Language == "fa").Name.GetSlug(true),
+                            Name = member.Category.Translations.First(t => t.Language == lang).Name,
+                            Slug = member.Category.Translations.First(t => t.Language == lang).Name.GetSlug(true),
                             Children = member.Category.Children.Where(child => !child.Deleted && child.IsActive).Select(child => new CategoryListItemDto
                             {
                                 Id = child.Id,
-                                Name = child.Translations.First(t => t.Language == "fa").Name,
-                                Slug = child.Translations.First(t => t.Language == "fa").Name.GetSlug(true)
+                                Name = child.Translations.First(t => t.Language == lang).Name,
+                                Slug = child.Translations.First(t => t.Language == lang).Name.GetSlug(true)
                             }).ToList()
                         })
 

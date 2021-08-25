@@ -112,7 +112,7 @@ namespace Migrations.Migrations
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     ViewCount = table.Column<int>(type: "int", nullable: false),
-                    Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
+                    Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -129,8 +129,8 @@ namespace Migrations.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Code = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -149,7 +149,7 @@ namespace Migrations.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Keyword = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
+                    Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -186,11 +186,11 @@ namespace Migrations.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Keyword = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    Keyword = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Summary = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
+                    Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -215,7 +215,7 @@ namespace Migrations.Migrations
                     Link = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LinkText = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
+                    Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -232,7 +232,8 @@ namespace Migrations.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -390,7 +391,7 @@ namespace Migrations.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: true),
+                    Language = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -491,22 +492,22 @@ namespace Migrations.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedOn", "Deleted", "DeletedOn", "Email", "EmailConfirmed", "Gender", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedOn", "UserName" },
-                values: new object[] { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "7157688d-7f31-4927-9d02-c14fdec4494e", new DateTime(2021, 7, 26, 20, 33, 21, 496, DateTimeKind.Local).AddTicks(6025), false, null, "Email@email.com", true, (byte)0, false, null, "email@email.com", "email@email.com", "AQAAAAEAACcQAAAAEF2y3seLgzGZ6gh/rhff8XHkLZPKtINEbP3OEe2x3bxo0qsR45o/lQnLAwHvw/P2AQ==", null, false, null, false, null, "Email@email.com" });
+                values: new object[] { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "058d1d6d-0797-4f64-a05f-ff939153f492", new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), false, null, "Email@email.com", true, (byte)0, false, null, "email@email.com", "email@email.com", "AQAAAAEAACcQAAAAEMdDRzlE89HWOsK6MSH6m7kWtn61fxl+A9wBp4s7Zps93fmMP5KdlXZbIgnqWoXv7g==", null, false, "VAPZU2UUTN3YJWCM2F3FWOHEBYB6MQJR", false, null, "Email@email.com" });
 
             migrationBuilder.InsertData(
                 table: "Languages",
                 columns: new[] { "Id", "Code", "CreatedOn", "IsActive", "IsDefault", "Name", "UpdatedOn" },
-                values: new object[] { 1, "fa", new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(6565), true, true, "فارسی", null });
+                values: new object[] { 1, "fa", new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), true, true, "فارسی", null });
 
             migrationBuilder.InsertData(
                 table: "Menus",
                 columns: new[] { "Id", "CreatedOn", "Keyword", "Language", "Title", "UpdatedOn" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8430), "header", "fa", "هدر", null },
-                    { 2, new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8739), "useful_link", "fa", "لینک های مفید	", null },
-                    { 3, new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8750), "our_services", "fa", "خدمات ما", null },
-                    { 4, new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8754), "featured", "fa", "زیر اسلایدر	", null }
+                    { 1, new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), "header", "fa", "هدر", null },
+                    { 2, new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), "useful_link", "fa", "لینک های مفید	", null },
+                    { 3, new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), "our_services", "fa", "خدمات ما", null },
+                    { 4, new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), "featured", "fa", "زیر اسلایدر	", null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -598,14 +599,13 @@ namespace Migrations.Migrations
                 table: "Menus",
                 columns: new[] { "Keyword", "Language" },
                 unique: true,
-                filter: "[Keyword] IS NOT NULL AND [Language] IS NOT NULL");
+                filter: "[Keyword] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pages_Language_Keyword",
                 table: "Pages",
                 columns: new[] { "Language", "Keyword" },
-                unique: true,
-                filter: "[Language] IS NOT NULL AND [Keyword] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Permissions_RoleId",
@@ -613,11 +613,10 @@ namespace Migrations.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tags_Name",
+                name: "IX_Tags_Name_Language",
                 table: "Tags",
-                column: "Name",
-                unique: true,
-                filter: "[Name] IS NOT NULL");
+                columns: new[] { "Name", "Language" },
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

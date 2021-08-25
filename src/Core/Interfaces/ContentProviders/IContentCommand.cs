@@ -2,7 +2,7 @@
 
 namespace Core.Interfaces.ContentProviders
 {
-    public interface IContentCommandProvider
+    public interface IContentCommand
     {
         Task IncreaseViewCountAsync(int contentId);
     }

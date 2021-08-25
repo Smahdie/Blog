@@ -1,6 +1,12 @@
 ﻿@page
 @model IndexModel
 
+@inject SharedLocalizationService localizer
+
+@{
+    var lang = HttpContext.CurrentLanguage();
+}
+
 @await Component.InvokeAsync("Slider")
 
 <main id="main">
@@ -15,7 +21,9 @@
                         @await Html.PartialAsync("_BlogListItem", item)
                     }
                     <div class="text-center">
-                        <a class="see-all" asp-page="blog/list" asp-route-handler="all">همه مطالب</a>
+                        <a class="see-all" asp-page="blog/list" asp-route-handler="all" asp-route-culture="@lang">
+                            @localizer.Get("All Posts")
+                        </a>
                     </div>
                 </div>
                 @await Html.PartialAsync("_BlogSidebar")

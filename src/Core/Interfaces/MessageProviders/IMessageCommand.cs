@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Core.Interfaces.MessageProviders
 {
-    public interface IMessageCommandProvider
+    public interface IMessageCommand
     {
         Task<CommandResultDto> SendAsync(MessageSendDto dto);
     }

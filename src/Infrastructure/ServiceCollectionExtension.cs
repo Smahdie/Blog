@@ -63,16 +63,16 @@ namespace Infrastructure
 
             services.AddMemoryCache();
 
-            services.AddScoped<ICategoryQueryProvider, CategoryQueryProvider>();
+            services.AddScoped<ICategoryQuery, CategoryQuery>();
             services.AddScoped<ICaptchaManager, CaptchaManager>();
-            services.AddScoped<IContactInfoQueryProvider, ContactInfoQueryProvider>();
-            services.AddScoped<IContentCommandProvider, ContentCommandProvider>();
-            services.AddScoped<IContentQueryProvider, ContentQueryProvider>();
-            services.AddScoped<IMenuQueryProvider, MenuQueryProvider>();
-            services.AddScoped<IMessageCommandProvider, MessageCommandProvider>();
-            services.AddScoped<IPageQueryProvider, PageQueryProvider>();
-            services.AddScoped<ISliderQueryProvider, SliderQueryProvider>();
-            services.AddScoped<ITagQueryProvider, TagQueryProvider>();            
+            services.AddScoped<IContactInfoQuery, ContactInfoQuery>();
+            services.AddScoped<IContentCommand, ContentCommand>();
+            services.AddScoped<IContentQuery, ContentQuery>();
+            services.AddScoped<IMenuQuery, MenuQuery>();
+            services.AddScoped<IMessageCommand, MessageCommand>();
+            services.AddScoped<IPageQuery, PageQuery>();
+            services.AddScoped<ISliderQuery, SliderQuery>();
+            services.AddScoped<ITagQuery, TagQuery>();            
 
             services.Configure<WebAppSettings>(configuration.GetSection("WebAppSettings"));
             services.Configure<MemoryCacheSettings>(configuration.GetSection("MemoryCache"));

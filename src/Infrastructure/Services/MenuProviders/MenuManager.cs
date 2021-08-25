@@ -63,6 +63,7 @@ namespace Infrastructure.Services.MenuProviders
                 {
                     Id = m.Id,
                     Title = m.Title,
+                    Language = m.Language,
                     Keyword = m.Keyword,
                     CreatedOn = PersianDateHelper.ConvertToLocalDateTime(m.CreatedOn)
                 }).ToListAsync();

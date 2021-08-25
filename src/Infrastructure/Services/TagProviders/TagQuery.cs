@@ -8,15 +8,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Models;
 
 namespace Infrastructure.Services.TagProviders
 {
-    public class TagQueryProvider : ITagQueryProvider
+    public class TagQuery : ITagQuery
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly WebAppSettings _appSettings;
 
-        public TagQueryProvider(
+        public TagQuery(
             ApplicationDbContext dbContext,
             IOptions<WebAppSettings> appSettings)
         {
@@ -24,9 +25,10 @@ namespace Infrastructure.Services.TagProviders
             _appSettings = appSettings.Value;
         }
 
-        public Task<List<TagListDto>> GetTopTagsAsync()
+        public Task<List<TagListDto>> GetTopTagsAsync(string language)
         {
-            return _dbContext.Tags
+            return Query()
+                .Where(t=>t.Language == language)
                 .OrderBy(a=> Guid.NewGuid())
                 .Take(_appSettings.TopTagsCount)
                 .Select(a => new TagListDto 
@@ -40,7 +42,7 @@ namespace Infrastructure.Services.TagProviders
 
         public Task<TagListDto> GetByIdAsync(int id)
         {
-            return _dbContext.Tags
+            return Query()
                 .Where(t => t.Id == id)
                 .Select(a => new TagListDto
                 {
@@ -49,6 +51,11 @@ namespace Infrastructure.Services.TagProviders
                     Slug = a.Name.GetSlug(true)
                 })
                 .FirstOrDefaultAsync();
+        }
+
+        private IQueryable<Tag> Query()
+        {
+            return _dbContext.Tags;
         }
     }
 }

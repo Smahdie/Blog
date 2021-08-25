@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services.ContentProviders
 {
-    public class ContentCommandProvider : IContentCommandProvider
+    public class ContentCommand : IContentCommand
     {
         private readonly ApplicationDbContext _dbContext;
-        public ContentCommandProvider(ApplicationDbContext dbContext)
+        public ContentCommand(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }

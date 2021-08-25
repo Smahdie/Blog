@@ -2,8 +2,11 @@
 @model ContentListDto
 
 @{
-    var href = $"/blog/details/{Model.Id}/{Model.Slug}";
+    var lang = Context.CurrentLanguage();
+    var href = $"/{lang}/blog/details/{Model.Id}/{Model.Slug}";
 }
+
+@inject SharedLocalizationService localizer
 
 <article class="entry">
 
@@ -31,7 +34,7 @@
             @Model.Summary
         </p>
         <div class="read-more">
-            <a href="@href">ادامه مطلب</a>
+            <a href="@href">@localizer.Get("Continue Reading")</a>
         </div>
     </div>
 </article>

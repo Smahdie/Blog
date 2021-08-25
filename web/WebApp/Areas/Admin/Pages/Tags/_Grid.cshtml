@@ -19,6 +19,7 @@ else
             <tr>
                 <th class="sortable">@Html.LabelFor(model => searchModel.Id)</th>
                 <th class="sortable">@Html.LabelFor(model => searchModel.Name)</th>
+                <th class="sortable">@Html.LabelFor(model => searchModel.Language)</th>
                 <th class="sortable">@Html.LabelFor(model => searchModel.CreatedOn)</th>
                 <th></th>
             </tr>
@@ -29,6 +30,7 @@ else
                 <tr data-id="@item.Id">
                     <td>@item.Id</td>
                     <td>@item.Name</td>
+                    <td>@item.Language</td>
                     <td>@item.CreatedOn</td>
                     <td>
                         <a asp-page="/Contents/Index" asp-route-tagId="@item.Id" class="btn btn-primary btn-sm">محتواها</a>

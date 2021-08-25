@@ -14,6 +14,10 @@ namespace Core.Dtos.MenuDtos
         [Search]
         public string Title { get; set; }
 
+        [Display(Name = "زبان")]
+        [Search]
+        public string Language { get; set; }
+
         [Display(Name = "کلمه کلیدی")]
         [Search]
         public string Keyword { get; set; }

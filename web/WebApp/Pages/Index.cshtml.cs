@@ -4,15 +4,16 @@ using Core.Interfaces.ContentProviders;
 using Core.Models.Enums;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
+using WebApp.Extensions;
 
 namespace WebApp.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IContentQueryProvider _contentQueryProvider;
+        private readonly IContentQuery _contentQueryProvider;
 
         public IndexModel(
-            IContentQueryProvider contentQueryProvider)
+            IContentQuery contentQueryProvider)
         {
             _contentQueryProvider = contentQueryProvider;
         }
@@ -21,7 +22,8 @@ namespace WebApp.Pages
 
         public async Task OnGet()
         {
-            Contents = await _contentQueryProvider.GetTopAsync(new TopContentRequestDto { Type= ContentType.Article });
+            var language = HttpContext.CurrentLanguage();
+            Contents = await _contentQueryProvider.GetTopAsync(new TopContentRequestDto { Type = ContentType.Article, Language = language });
         }
     }
 }

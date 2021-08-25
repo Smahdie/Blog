@@ -3,15 +3,17 @@ using Core.Interfaces.CategoryProviders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
+using WebApp.Extensions;
 
 namespace WebApp.ViewComponents
 {
     public class BlogCategoriesViewComponent : ViewComponent
     {
-        private readonly ICategoryQueryProvider _categoryQueryProvider;
+        private readonly ICategoryQuery _categoryQueryProvider;
         private readonly WebAppSettings _appSettings;
+
         public BlogCategoriesViewComponent(
-            ICategoryQueryProvider categoryQueryProvider,
+            ICategoryQuery categoryQueryProvider,
             IOptions<WebAppSettings> appSettings)
         {
             _categoryQueryProvider = categoryQueryProvider;
@@ -20,8 +22,9 @@ namespace WebApp.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var tags = await _categoryQueryProvider.GetListAsync(_appSettings.BlogCategoryId);
-            return View(tags);
+            var language = HttpContext.CurrentLanguage();
+            var categories = await _categoryQueryProvider.GetListAsync(_appSettings.BlogCategoryId, language);
+            return View(categories);
         }
     }
 }

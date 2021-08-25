@@ -1,6 +1,7 @@
 ﻿using Core.Dtos.ContactInfoDtos;
 using Core.Dtos.Settings;
 using Core.Interfaces.ContactInfoProviders;
+using Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
@@ -11,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services.ContactInfoProviders
 {
-    public class ContactInfoQueryProvider : IContactInfoQueryProvider
+    public class ContactInfoQuery : IContactInfoQuery
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IMemoryCache _cache;
         private readonly MemoryCacheSettings _memoryCacheSettings;
 
-        public ContactInfoQueryProvider(
+        public ContactInfoQuery(
             ApplicationDbContext dbContext,
             IMemoryCache cache,
             IOptions<MemoryCacheSettings> memoryCacheSettings)
@@ -27,21 +28,22 @@ namespace Infrastructure.Services.ContactInfoProviders
             _memoryCacheSettings = memoryCacheSettings.Value;
         }
 
-        public async Task<List<ContactInfoListDto>> GetAllAsync()
+        public async Task<List<ContactInfoListDto>> GetAllAsync(string language)
         {
-            var serializedData = await _cache.GetOrCreateAsync(CacheKeys.ContactInfo(), entry =>
+            var serializedData = await _cache.GetOrCreateAsync(CacheKeys.ContactInfo(language), entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = _memoryCacheSettings.ContactInfoExpiration;
-                return GetAllFromDb();
+                return GetAllFromDb(language);
             });
+
             var model = JsonSerializer.Deserialize<List<ContactInfoListDto>>(serializedData);
             return model;
         }
 
-        private async Task<string> GetAllFromDb()
+        private async Task<string> GetAllFromDb(string language)
         {
-            var data = await _dbContext.ContactInfos
-                .Where(c => !c.Deleted && c.IsActive)
+            var data = await Query()
+                .Where(c => c.Language == language)
                 .Select(c => new ContactInfoListDto
                 {
                     Id = c.Id,
@@ -52,7 +54,12 @@ namespace Infrastructure.Services.ContactInfoProviders
 
             var serializedData = JsonSerializer.Serialize(data);
             return serializedData;
+        }
 
+        private IQueryable<ContactInfo> Query()
+        {
+            return _dbContext.ContactInfos
+                .Where(c => !c.Deleted && c.IsActive);
         }
     }
 }

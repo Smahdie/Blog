@@ -148,7 +148,10 @@
     });
 
 })(jQuery);
+
 function search() {
+    var lang = $('body').data('lang');
+    console.log('lang', lang);
     var query = $('#search-text').val();
     if (query === undefined || query === null)
         return;
@@ -157,7 +160,8 @@ function search() {
         toastr.error("برای جستجو حداقل دو حرف وارد کنید.")
         return;
     }
-    window.location.href = `/blog/search/${query}/page-1`;
+
+    window.location.href = `/${lang}/blog/search/${query}/page-1`;
 }
 
 const init = () => {
@@ -184,3 +188,8 @@ ajaxOnSuccess = (response) => {
     }
     toastr.success(message);   
 };
+
+$('#language-list a').click(function () {
+    var lang = $(this).data('lang');
+    window.location = `/${lang}`;
+});

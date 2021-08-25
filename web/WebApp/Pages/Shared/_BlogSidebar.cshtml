@@ -1,12 +1,14 @@
-﻿<div class="col-lg-4">
+﻿@inject SharedLocalizationService localizer
+
+<div class="col-lg-4">
     <div class="sidebar">
 
-        <h3 class="sidebar-title">جستجو</h3>
-        <div class="sidebar-item search-form">            
+        <h3 class="sidebar-title">@localizer.Get("Search")</h3>
+        <div class="sidebar-item search-form">
             <input id="search-text" type="text" />
             <button id="search-button" type="button"><i class="icofont-search"></i></button>
         </div>
-        
+
 
         @await Component.InvokeAsync("BlogCategories")
 

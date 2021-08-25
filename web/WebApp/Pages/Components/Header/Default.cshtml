@@ -1,10 +1,18 @@
 ﻿@using Core.Dtos.MenuDtos
+
 @model MenuDetailsDto
+
+@{
+    var lang = Context.CurrentLanguage();
+}
+
+@inject SharedLocalizationService localizer
+
 
 <header id="header">
     <div class="container d-flex">
         <div class="logo">
-            <h1 class="text-light"><a href="/"><span>برند شما</span></a></h1>
+            <h1 class="text-light"><a href="@($"/{lang}")"><span>@localizer.Get("Brand")</span></a></h1>
         </div>
 
         <nav class="nav-menu d-none d-lg-block">
@@ -16,17 +24,17 @@
                         switch (item.TargetType)
                         {
                             case MenuMemberTargetType.Home:
-                                <li><a href="/">صفحه اصلی</a></li>
+                                <li><a href="@($"/{lang}")">@localizer.Get("Home Page")</a></li>
                                 break;
                             case MenuMemberTargetType.ContactUs:
-                                <li><a asp-page="/ContactUs">تماس با ما</a></li>
+                                <li><a asp-page="/ContactUs" asp-route-culture="@lang">@localizer.Get("Contact Us")</a></li>
                                 break;
                             case MenuMemberTargetType.Category:
                                 if (item.Category != null)
                                 {
                                     if (item.Category.Children == null || !item.Category.Children.Any())
                                     {
-                                        <li><a asp-page="/blog/list" asp-route-handler="Category" asp-route-id="@item.Category.Id" asp-route-slug="@item.Category.Slug">@item.Category.Name</a></li>
+                                        <li><a asp-page="/blog/list" asp-route-culture="@lang" asp-route-handler="Category" asp-route-id="@item.Category.Id" asp-route-slug="@item.Category.Slug">@item.Category.Name</a></li>
                                     }
                                     else
                                     {
@@ -35,7 +43,7 @@
                                             <ul>
                                                 @foreach (var child in item.Category.Children)
                                                 {
-                                                    <li><a asp-page="/blog/list" asp-route-handler="Category" asp-route-id="@child.Id" asp-route-slug="@child.Slug">@child.Name</a></li>
+                                                    <li><a asp-page="/blog/list" asp-route-culture="@lang" asp-route-handler="Category" asp-route-id="@child.Id" asp-route-slug="@child.Slug">@child.Name</a></li>
                                                 }
                                             </ul>
                                         </li>
@@ -45,13 +53,21 @@
                             case MenuMemberTargetType.Page:
                                 if (item.Page != null)
                                 {
-                                    <li><a asp-page="/Pages/Details" asp-route-keyword="@item.Page.Keyword">@item.Page.Title</a></li>
+                                    <li><a asp-page="/Pages/Details" asp-route-culture="@lang" asp-route-keyword="@item.Page.Keyword">@item.Page.Title</a></li>
                                 }
 
                                 break;
                         }
                     }
                 }
+
+                <li class="drop-down">
+                    <a href="#" onclick="return false;">@localizer.Get("Current Language")</a>
+                    <ul id="language-list">
+                        <li class="@(lang == "fa" ? "selected":"")"><a data-lang="fa" href="#">فارسی</a></li>
+                        <li class="@(lang == "en" ? "selected":"")"><a data-lang="en" href="#">English</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

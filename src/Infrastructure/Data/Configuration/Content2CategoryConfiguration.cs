@@ -10,7 +10,7 @@ namespace Infrastructure.Data.Configuration
         {
             builder.HasKey(a => new { a.ContentId, a.CategoryId });
             builder.HasOne(a => a.Category).WithMany().HasForeignKey(a => a.CategoryId).OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(a => a.Content).WithMany(a=>a.Categories).HasForeignKey(a => a.ContentId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(a => a.Content).WithMany(a => a.Categories).HasForeignKey(a => a.ContentId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

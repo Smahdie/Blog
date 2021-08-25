@@ -8,7 +8,7 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<MenuMember> builder)
         {
-            builder.HasOne(a => a.Menu).WithMany(a=>a.Members).HasForeignKey(a => a.MenuId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(a => a.Menu).WithMany(a => a.Members).HasForeignKey(a => a.MenuId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

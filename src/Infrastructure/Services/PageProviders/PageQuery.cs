@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services.PageProviders
 {
-    public class PageQueryProvider : IPageQueryProvider
+    public class PageQuery : IPageQuery
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IMemoryCache _cache;
         private readonly MemoryCacheSettings _memoryCacheSettings;
 
-        public PageQueryProvider(
+        public PageQuery(
             ApplicationDbContext dbContext,
             IMemoryCache cache,
             IOptions<MemoryCacheSettings> memoryCacheSettings)
@@ -27,23 +27,24 @@ namespace Infrastructure.Services.PageProviders
             _memoryCacheSettings = memoryCacheSettings.Value;
         }
 
-        public async Task<PageDetailsDto> GetDetailsAsync(string keyword)
+        public async Task<PageDetailsDto> GetDetailsAsync(string keyword, string language)
         {
-            var serializedData = await _cache.GetOrCreateAsync(CacheKeys.Page(keyword), entry =>
+            var serializedData = await _cache.GetOrCreateAsync(CacheKeys.Page(keyword, language), entry =>
             {
                 entry.AbsoluteExpirationRelativeToNow = _memoryCacheSettings.PageExpiration;
-                return GetDetailsFromDb(keyword);
+                return GetDetailsFromDb(keyword, language);
             });
 
             var model = JsonSerializer.Deserialize<PageDetailsDto>(serializedData);
             return model;
         }
 
-        private async Task<string> GetDetailsFromDb(string keyword)
+        private async Task<string> GetDetailsFromDb(string keyword, string language)
         {
             var data = await Query()
                 .Where(p => p.Keyword == keyword)
-                .Select(p=> new PageDetailsDto 
+                .Where(p => p.Language == language)
+                .Select(p => new PageDetailsDto
                 {
                     Id = p.Id,
                     Title = p.Title,

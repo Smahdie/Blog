@@ -5,9 +5,10 @@
 @using Core.Dtos.Settings
 
 @inject IOptions<GoogleReCaptchaSettings> GoogleReCaptcha
+@inject SharedLocalizationService localizer
 
 @{
-    ViewData["BreadCrumbTitle"] = ViewData["PageHeading"] = "تماس با ما";
+    ViewData["BreadCrumbTitle"] = ViewData["PageHeading"] = localizer.Get("Contact Us");
     ViewData["BodyClass"] = "contact";
 
     var address = Model.Contacts.FirstOrDefault(c => c.ContactType == ContactType.Address);
@@ -30,7 +31,7 @@
                     <div class="col-lg-6">
                         <div class="info-box mb-4">
                             <i class="bx bx-map"></i>
-                            <h3>آدرس ما</h3>
+                            <h3>@localizer.Get("Our Address")</h3>
                             <p>@address.Value</p>
                         </div>
                     </div>
@@ -40,7 +41,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="info-box  mb-4">
                             <i class="bx bx-envelope"></i>
-                            <h3>ایمیل</h3>
+                            <h3>@localizer.Get("Email")</h3>
                             <p>@email.Value</p>
                         </div>
                     </div>
@@ -50,7 +51,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="info-box  mb-4">
                             <i class="bx bx-phone-call"></i>
-                            <h3>تلفن</h3>
+                            <h3>@localizer.Get("Phone")</h3>
                             <p>@phone.Value</p>
                         </div>
                     </div>
@@ -101,9 +102,9 @@
                             <span asp-validation-for="Input.Text" class="help-block"></span>
                         </div>
                         <div class="mb-3">
-                            <div id="loading-div" class="loading">در حال ارسال</div>
+                            <div id="loading-div" class="loading">@localizer.Get("Sending Message")</div>
                         </div>
-                        <div class="text-center"><button id="submitButton" type="submit" disabled>ارسال پیام</button></div>
+                        <div class="text-center"><button id="submitButton" type="submit" disabled>@localizer.Get("Send Message")</button></div>
                     </form>
                 </div>
 

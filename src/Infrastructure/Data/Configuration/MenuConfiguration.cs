@@ -8,7 +8,7 @@ namespace Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Menu> builder)
         {
-            builder.Property(a => a.Language).HasMaxLength(8);
+            builder.Property(a => a.Language).IsRequired().HasMaxLength(8);
             builder.HasIndex(a => new { a.Keyword, a.Language }).IsUnique();
         }
     }

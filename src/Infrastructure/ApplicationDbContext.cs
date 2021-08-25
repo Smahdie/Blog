@@ -51,6 +51,7 @@ namespace Infrastructure
 
         private static void CreateDefaultData(ModelBuilder builder)
         {
+            var date = DateTime.Parse("2021-01-04");
             var hasher = new PasswordHasher<Manager>();
             builder.Entity<Manager>().HasData(
                 new Manager
@@ -62,8 +63,10 @@ namespace Infrastructure
                     NormalizedEmail = "email@email.com",
                     EmailConfirmed = true,
                     LockoutEnabled = false,
-                    PasswordHash = hasher.HashPassword(null, "Pa$$w0rd"),
-                    CreatedOn = DateTime.Now
+                    PasswordHash = "AQAAAAEAACcQAAAAEMdDRzlE89HWOsK6MSH6m7kWtn61fxl+A9wBp4s7Zps93fmMP5KdlXZbIgnqWoXv7g==",//Pa$$w0rd
+                    ConcurrencyStamp = "058d1d6d-0797-4f64-a05f-ff939153f492",
+                    SecurityStamp = "VAPZU2UUTN3YJWCM2F3FWOHEBYB6MQJR",
+                    CreatedOn = date
                 }
             );
 
@@ -73,7 +76,7 @@ namespace Infrastructure
                 Name = "فارسی",
                 IsActive = true,
                 IsDefault = true,
-                CreatedOn = DateTime.Now
+                CreatedOn = date
             });
 
 
@@ -83,27 +86,27 @@ namespace Infrastructure
                 Keyword = "header",
                 Title = "هدر",
                 Language = "fa",                
-                CreatedOn = DateTime.Now
+                CreatedOn = date
             }, new Menu {
                 Id = 2,
                 Keyword = "useful_link",
                 Title = "لینک های مفید	",
                 Language = "fa",
-                CreatedOn = DateTime.Now
+                CreatedOn = date
             }, new Menu
             {
                 Id = 3,
                 Keyword = "our_services",
                 Title = "خدمات ما",
                 Language = "fa",
-                CreatedOn = DateTime.Now
+                CreatedOn = date
             }, new Menu
             {
                 Id = 4,
                 Keyword = "featured",
                 Title = "زیر اسلایدر	",
                 Language = "fa",
-                CreatedOn = DateTime.Now
+                CreatedOn = date
             });
         }
     }

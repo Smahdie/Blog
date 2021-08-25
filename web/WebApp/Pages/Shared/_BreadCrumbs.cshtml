@@ -1,11 +1,14 @@
 ﻿@{
     var breadCrumbs = ViewData["BreadCrumb"] as List<BreadCrumbDto>;
+    var lang = Context.CurrentLanguage();
 }
+
+@inject SharedLocalizationService localizer
 
 <section id="breadcrumbs" class="breadcrumbs">
     <div class="container">
         <ol>
-            <li><a href="/">خانه</a></li>
+            <li><a href="@($"/{lang}")">@localizer.Get("Home")</a></li>
             @if (breadCrumbs != null)
             {
                 foreach (var item in breadCrumbs)

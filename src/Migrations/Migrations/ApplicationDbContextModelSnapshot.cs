@@ -62,6 +62,7 @@ namespace Migrations.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Language")
+                        .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
@@ -137,6 +138,7 @@ namespace Migrations.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Language")
+                        .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
@@ -198,6 +200,7 @@ namespace Migrations.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
@@ -211,6 +214,7 @@ namespace Migrations.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedOn")
@@ -225,7 +229,7 @@ namespace Migrations.Migrations
                         {
                             Id = 1,
                             Code = "fa",
-                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(6565),
+                            CreatedOn = new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsActive = true,
                             IsDefault = true,
                             Name = "فارسی"
@@ -316,8 +320,8 @@ namespace Migrations.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7157688d-7f31-4927-9d02-c14fdec4494e",
-                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 496, DateTimeKind.Local).AddTicks(6025),
+                            ConcurrencyStamp = "058d1d6d-0797-4f64-a05f-ff939153f492",
+                            CreatedOn = new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
                             Email = "Email@email.com",
                             EmailConfirmed = true,
@@ -325,8 +329,9 @@ namespace Migrations.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "email@email.com",
                             NormalizedUserName = "email@email.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF2y3seLgzGZ6gh/rhff8XHkLZPKtINEbP3OEe2x3bxo0qsR45o/lQnLAwHvw/P2AQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMdDRzlE89HWOsK6MSH6m7kWtn61fxl+A9wBp4s7Zps93fmMP5KdlXZbIgnqWoXv7g==",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "VAPZU2UUTN3YJWCM2F3FWOHEBYB6MQJR",
                             TwoFactorEnabled = false,
                             UserName = "Email@email.com"
                         });
@@ -523,6 +528,7 @@ namespace Migrations.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Language")
+                        .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
@@ -536,7 +542,7 @@ namespace Migrations.Migrations
 
                     b.HasIndex("Keyword", "Language")
                         .IsUnique()
-                        .HasFilter("[Keyword] IS NOT NULL AND [Language] IS NOT NULL");
+                        .HasFilter("[Keyword] IS NOT NULL");
 
                     b.ToTable("Menus");
 
@@ -544,7 +550,7 @@ namespace Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8430),
+                            CreatedOn = new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Keyword = "header",
                             Language = "fa",
                             Title = "هدر"
@@ -552,7 +558,7 @@ namespace Migrations.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8739),
+                            CreatedOn = new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Keyword = "useful_link",
                             Language = "fa",
                             Title = "لینک های مفید	"
@@ -560,7 +566,7 @@ namespace Migrations.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8750),
+                            CreatedOn = new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Keyword = "our_services",
                             Language = "fa",
                             Title = "خدمات ما"
@@ -568,7 +574,7 @@ namespace Migrations.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2021, 7, 26, 20, 33, 21, 500, DateTimeKind.Local).AddTicks(8754),
+                            CreatedOn = new DateTime(2021, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Keyword = "featured",
                             Language = "fa",
                             Title = "زیر اسلایدر	"
@@ -676,10 +682,12 @@ namespace Migrations.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Keyword")
+                        .IsRequired()
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("Language")
+                        .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
@@ -695,8 +703,7 @@ namespace Migrations.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Language", "Keyword")
-                        .IsUnique()
-                        .HasFilter("[Language] IS NOT NULL AND [Keyword] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Pages");
                 });
@@ -730,6 +737,7 @@ namespace Migrations.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Language")
+                        .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
@@ -766,15 +774,20 @@ namespace Migrations.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
+                    b.HasIndex("Name", "Language")
+                        .IsUnique();
 
                     b.ToTable("Tags");
                 });

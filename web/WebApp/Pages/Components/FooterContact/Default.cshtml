@@ -1,15 +1,16 @@
 ﻿@using Core.Dtos.ContactInfoDtos
 @model List<ContactInfoListDto>
 
+@inject SharedLocalizationService localizer
+
 @{
     var address = Model.FirstOrDefault(c => c.ContactType == ContactType.Address);
     var phone = Model.FirstOrDefault(c => c.ContactType == ContactType.Phone);
     var email = Model.FirstOrDefault(c => c.ContactType == ContactType.Email);
 }
 
-
 <div class="col-lg-3 col-md-6 footer-contact">
-    <h4>تماس با ما</h4>
+    <h4>@localizer.Get("Contact Us")</h4>
     <p>
         @foreach (var item in Model.Where(c => c.ContactType == ContactType.Address))
         {
@@ -19,18 +20,18 @@
         <br />
         @foreach (var item in Model.Where(c => c.ContactType == ContactType.Phone))
         {
-            <strong>تلفن:</strong>@phone.Value
+            <strong>@localizer.Get("Phone"):</strong>@phone.Value
             @Html.Raw("<br/>")
         }
         @foreach (var item in Model.Where(c => c.ContactType == ContactType.Fax))
         {
-            <strong>فکس:</strong>@phone.Value
+            <strong>@localizer.Get("Fax"):</strong>@phone.Value
             @Html.Raw("<br/>")
         }
 
         @foreach (var item in Model.Where(c => c.ContactType == ContactType.Email))
         {
-            <strong>ایمیل:</strong> @email.Value
+            <strong>@localizer.Get("Email"):</strong> @email.Value
             @Html.Raw("<br/>")
         }
     </p>

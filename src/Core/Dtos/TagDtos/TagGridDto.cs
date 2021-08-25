@@ -14,6 +14,10 @@ namespace Core.Dtos.TagDtos
         [Search]
         public string Name { get; set; }
 
+        [Display(Name = "زبان")]
+        [Search]
+        public string Language { get; set; }
+
         [Display(Name = "تاریخ درج")]
         [Search(SearchFieldType.Datetime)]
         public string CreatedOn { get; set; }
